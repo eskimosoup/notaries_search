@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :global_site_settings
 
+  def index
+    NotariesSocietyUpload.import
+  end
+  
   private
 
   def global_site_settings

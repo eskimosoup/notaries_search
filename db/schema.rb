@@ -11,21 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707081727) do
+ActiveRecord::Schema.define(version: 20150707104159) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  create_table "notaries_society_uploads", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "optimadmin_administrators", force: :cascade do |t|
-    t.string   "username",               null: false
-    t.string   "email",                  null: false
-    t.string   "role",                   null: false
-    t.string   "auth_token"
-    t.string   "password_digest",        null: false
-    t.string   "password_reset_token"
+    t.string   "username",               limit: 255, null: false
+    t.string   "email",                  limit: 255, null: false
+    t.string   "role",                   limit: 255, null: false
+    t.string   "auth_token",             limit: 255
+    t.string   "password_digest",        limit: 255, null: false
+    t.string   "password_reset_token",   limit: 255
     t.datetime "password_reset_sent_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "optimadmin_administrators", ["auth_token"], name: "index_optimadmin_administrators_on_auth_token", using: :btree
@@ -33,40 +35,40 @@ ActiveRecord::Schema.define(version: 20150707081727) do
   add_index "optimadmin_administrators", ["username"], name: "index_optimadmin_administrators_on_username", using: :btree
 
   create_table "optimadmin_documents", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.string   "document",    null: false
-    t.string   "module_name"
-    t.integer  "module_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",        limit: 255, null: false
+    t.string   "document",    limit: 255, null: false
+    t.string   "module_name", limit: 255
+    t.integer  "module_id",   limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "optimadmin_external_links", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "optimadmin_images", force: :cascade do |t|
-    t.string   "name",        null: false
-    t.string   "image",       null: false
-    t.string   "module_name"
-    t.integer  "module_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "name",        limit: 255, null: false
+    t.string   "image",       limit: 255, null: false
+    t.string   "module_name", limit: 255
+    t.integer  "module_id",   limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "optimadmin_links", force: :cascade do |t|
-    t.string   "menu_resource_type"
-    t.integer  "menu_resource_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.string   "menu_resource_type", limit: 255
+    t.integer  "menu_resource_id",   limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "optimadmin_menu_item_hierarchies", id: false, force: :cascade do |t|
-    t.integer "ancestor_id",   null: false
-    t.integer "descendant_id", null: false
-    t.integer "generations",   null: false
+    t.integer "ancestor_id",   limit: 4, null: false
+    t.integer "descendant_id", limit: 4, null: false
+    t.integer "generations",   limit: 4, null: false
   end
 
   add_index "optimadmin_menu_item_hierarchies", ["ancestor_id", "descendant_id", "generations"], name: "menu_item_anc_desc_idx", unique: true, using: :btree
@@ -75,12 +77,12 @@ ActiveRecord::Schema.define(version: 20150707081727) do
   create_table "optimadmin_menu_items", force: :cascade do |t|
     t.string   "menu_name",       limit: 100
     t.string   "name",            limit: 100
-    t.integer  "parent_id"
+    t.integer  "parent_id",       limit: 4
     t.boolean  "deletable",                   default: true
     t.boolean  "new_window",                  default: false
     t.string   "title_attribute", limit: 100
-    t.integer  "position",                    default: 0
-    t.integer  "link_id"
+    t.integer  "position",        limit: 4,   default: 0
+    t.integer  "link_id",         limit: 4
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
   end
@@ -88,16 +90,16 @@ ActiveRecord::Schema.define(version: 20150707081727) do
   add_index "optimadmin_menu_items", ["link_id"], name: "index_optimadmin_menu_items_on_link_id", using: :btree
 
   create_table "optimadmin_module_pages", force: :cascade do |t|
-    t.string   "name"
-    t.string   "route"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       limit: 255
+    t.string   "route",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "optimadmin_site_settings", force: :cascade do |t|
-    t.string "key"
-    t.string "value"
-    t.string "environment"
+    t.string "key",         limit: 255
+    t.string "value",       limit: 255
+    t.string "environment", limit: 255
   end
 
 end

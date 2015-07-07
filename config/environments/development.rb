@@ -7,7 +7,7 @@ Rails.application.configure do
 
   config.generators do |g|
     g.assets false
-    #g.stylesheets  false
+    g.stylesheets  false
     g.helper false
     #g.test_framework false
   end
