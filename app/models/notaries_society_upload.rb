@@ -4,9 +4,13 @@ class NotariesSocietyUpload < ActiveRecord::Base
   self.table_name = 'users'
   
   def self.import
-    all.offset(4).limit(1).find_each do |user|
-      raise user.location2_attrs.to_yaml if has_address_2?(user)
+    all.find_each do |user|
+      new_member =  Member.create(user.member_attrs)
+      new_member.create_membership_detail(user.membership_details_attrs)
+      new_member.member_locations.create(user.location_attrs)  if user.address.present?
+      new_member.member_locations.create(user.location2_attrs) if user.address2.present?
     end
+    MemberLocation.batch_geocode
   end
   
   def member_attrs
@@ -83,11 +87,11 @@ class NotariesSocietyUpload < ActiveRecord::Base
     }
   end
   
-  def self.has_address_2?(user)
-    if user.address2.present?
-     true
-   else
-     false
-   end
-  end
+  # def self.has_location2?(user)
+  #  if user.address2.present?
+  #   true
+  #  else
+  #    false
+  #  end
+  # end
 end

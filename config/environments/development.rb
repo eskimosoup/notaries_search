@@ -1,4 +1,7 @@
 Rails.application.configure do
+  require 'openssl'
+  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+  
   Rails.application.routes.default_url_options[:host] = '192.168.0.37:3000'
   config.action_mailer.smtp_settings = {:enable_starttls_auto => false}
 

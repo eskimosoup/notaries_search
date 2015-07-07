@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :global_site_settings
 
   def index
-    NotariesSocietyUpload.import
+    #@member_locations = MemberLocation.near(params[:location], params[:radius] || 5).joins(:membership_detail).where(membership_details: { in_practice: 'Y' }) if params[:location].present?
+    @member_locations = MemberLocation.location_search(params[:location], params[:radius], cookies[:allowed])
   end
   
   private
