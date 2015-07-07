@@ -1,0 +1,7 @@
+<%= form_tag root_path, method: :get do %>
+  <%= text_field_tag :location, params[:location], placeholder: 'Enter a location or post code' %>
+  <%= select_tag :radius, options_for_select([1, 2, 5, 10, 20], params[:radius] || 5) %>
+  <%= submit_tag %>
+<% end %>
+
+<%= render(partial: 'member_locations/member_location', collection: @member_locations, as: :member_location) || 'There are no notaries available for your search query.' %>
