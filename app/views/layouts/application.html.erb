@@ -1,14 +1,121 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>NotariesSearch</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <title>The Notaries Society | Find a Notary</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="V4 Technical - Web Design" />
 
-<%= yield %>
+    <meta name="revisit-after" content="3 Days" />
+    <meta name="robots" content="all" />
+    <link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/f42f6ccf-8ef2-4da1-ab20-379e36f508f3.css"/>
+    <link href="http://thenotariessociety.org.uk/style/default.css" rel="stylesheet" type="text/css" media="screen" />
 
-</body>
+    <link href="http://thenotariessociety.org.uk//css/print.css" rel="stylesheet" type="text/css" media="print" />
+    <script type="text/javascript" src="http://thenotariessociety.org.uk/js/jquery.js"></script>
+    <script type="text/javascript" src="http://thenotariessociety.org.uk/js/jquery.cookie.js"></script>
+
+    <script type="text/javascript" src="http://thenotariessociety.org.uk/admin/js/jquery.rightClick.js"></script>
+    <script type="text/javascript" src="http://thenotariessociety.org.uk/admin/js/accordion.jquery.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <style>
+
+          * {
+             font-family: arial !important;
+          }
+
+      </style>
+    <![endif]-->
+
+    <meta name="viewport" content="width=1024px, user-scalable=no, target-densitydpi=device-dpi" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+  		<!-- Site Header -->
+  		<header class="content">
+				<section id="logo" class="logo-intenral">
+					<h1>The Notaries Society</h1>
+				</section>
+
+  			<div id="navigation-container">
+
+  				<!-- Search Website -->
+  				<section id="site-search">
+  					<form action="http://thenotariessociety.org.uk/search" method="get">
+              <% if cookies[:allowed].blank? %>
+                <a href="http://thenotariessociety.org.uk/login?return=/members/home">Society Members Login</a>
+              <% else %>
+                <a href="http://thenotariessociety.org.uk/members">Members Area</a> &bull;
+                <a href="http://thenotariessociety.org.uk/council/home">Council Area</a>&bull;
+                <a href="http://thenotariessociety.org.uk/myaccount">My Account</a> &bull;
+                <a href="http://thenotariessociety.org.uk/admin">Admin</a> &bull;
+                <a href="http://thenotariessociety.org.uk/logout">Logout</a>
+              <% end %>
+  						<input name="term" type="text" placeholder="Search our website"><input type="submit" class="inline-search-button" value="search">
+  					</form>
+  				</section>
+
+    				<!-- Main Navigation -->
+    				<nav>
+    					<ul>
+    						<li class=""><a href="/">Home</a></li>
+    						<li class=""><a href="/what-is-a-notary">What Is a Notary</a></li>
+    						<li class="active"><a href="/find-a-notary">Find a Notary</a></li>
+    						<li class=""><a href="/the-notarial-profession">The Notarial Profession</a></li>
+    						<li class=""><a href="/complaints">Complaints</a></li>
+    						<li class=""><a href="/contact-us">Contact Us</a></li>
+								<li class="mobile"><a href="/login?return=/members/home">Society Members Login</a></li>
+    					</ul>
+    				</nav>
+    			</div>
+    		</header>
+
+				<section id="breadcrumb">
+          <div class="content">
+            <nav class="beadcrumb-nav">
+              <ul>
+                <li>
+                  <a href="/">Home</a>
+                </li>
+                <li><a href="find-a-notary">Find A Notary</a></li>
+                <li><a href="">Results</a></li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+
+        <!-- Main Content -->
+        <%= yield %>
+
+        <!-- Footer -->
+      	<footer>
+      		<div class="content">
+      			<span id="copyright">Copyright 2015 The Notaries Society | Web Design and Development by <a href="http://v4technical.com">V4 Technical Ltd</a></span>
+      		</div>
+      	</footer>
+
+        <script type="text/javascript"></script>
+
+      	<script type="text/javascript">
+        	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        	</script>
+        	<script type="text/javascript">
+        	try {
+        	var pageTracker = _gat._getTracker("UA-15181484-1");
+        	pageTracker._trackPageview();
+        	} catch(err) {}
+        </script>
+      </div>
+  </body>
+
 </html>
