@@ -1,0 +1,894 @@
+
+	<body>
+	<div class="wrapper">
+
+		<!-- Site Header -->
+		<header class="content">
+
+							<section id="logo" class="logo-intenral">
+					<h1>The Notaries Society</h1>
+				</section>
+			
+			<div id="navigation-container">
+
+				<!-- Search Website -->
+				<section id="site-search">
+					<form action="/search" method="get">
+													<a href="/login?return=/members/home">Society Members Login</a>
+						
+						<input name="term" type="text" placeholder="Search our website"><input type="submit" class="inline-search-button" value="search">
+					</form>
+				</section>
+
+				<!-- Main Navigation -->
+				<nav>
+					<ul>
+						<li class=""><a href="/">Home</a></li>
+						<li class=""><a href="/what-is-a-notary">What Is a Notary</a></li>
+						<li class="active"><a href="/find-a-notary">Find a Notary</a></li>
+						<li class=""><a href="/the-notarial-profession">The Notarial Profession</a></li>
+						<li class=""><a href="/complaints">Complaints</a></li>
+						<li class=""><a href="/contact-us">Contact Us</a></li>
+
+													<li class="mobile"><a href="/login?return=/members/home">Society Members Login</a></li>
+						
+					</ul>
+				</nav>
+
+			</div>
+
+		</header>
+
+					<section id="breadcrumb">
+
+				
+				<div class="content">
+					<nav class="beadcrumb-nav">
+						<ul>
+							<li>
+								<a href="/">Home</a>
+							</li>
+
+							<li><a href="find-a-notary">Find A Notary</a></li>
+															<li><a href="">Results</a></li>
+							
+						</ul>
+					</nav>
+
+
+
+				</div>
+			</section>
+		
+		
+		<!--<div id="topnavigation">
+			  <ul>
+				<li><a href="/students/home"><img src="/images/nav-studentarea.gif" /></a></li>
+				  <li><a href="/council/home"><img src="/images/nav-councilmembers.gif" /></a></li>
+				  <li><a href="/members/home"><img src="/images/nav-membersarea.gif" /></a></li>
+			  </ul>
+		  </div>-->
+
+		
+		<!-- Main Content -->
+
+
+
+		
+			
+
+	
+
+
+	<form id="map_search" action="" method="get">
+
+		<input name="search_term" type="text" value="hull">
+		<input type="submit" class="inline-search-button" style="line-height: 34px; margin-top:11px;" value="&rarr;">
+	</form>
+
+	<div id="map" style="width:100%; height:400px;"></div>
+
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCNsvvItuNja9UhstNQvLwnSYoTHycRdoE&sensor=false"></script>
+
+	<script src="/js/cluster.js"></script>
+
+	<script type="text/javascript">
+	var results = [];
+	var results_people = [];
+	var results_places = [];
+	var latlngs = [];
+	var infoWindows = [];
+	var markers = [];
+
+						 	results_places.push({"name":"Stephen Walker","email":"sw@gosschalks.co.uk","address":"Gosschalks Solicitors \nQueens Gardens \nHull \nKingston upon Hull","website":"www.gosschalks.co.uk","phone":"01482 324252","mobile":"","fax":"0870 600 5962","is_member":"Y","in_practice":"Y","id":40746,"lat":53.744955,"lng":-0.335855,"location":1651,"html":"<div><strong>Stephen Walker<\/strong><br>Email: <a href='mailto:sw@gosschalks.co.uk'>sw@gosschalks.co.uk<\/a><br>Phone: sw@gosschalks.co.uk<br>Website: <a href='www.gosschalks.co.uk'>www.gosschalks.co.uk<\/a><br>Fax: 0870 600 5962<br>Address: Gosschalks Solicitors \nQueens Gardens \nHull \nKingston upon Hull<\/div>"});
+								 	results_places.push({"name":"Graham Ward Nettleton","email":"GWN@brewerwallace.co.uk","address":"Brewer Wallace Solicitors, Shackles Chambers \n7 Land of Green Ginger \nHull \nEast Yorkshire","website":"www.brewerwallace.co.uk","phone":"01482 221130","mobile":"07875 698108","fax":"01482 213288","is_member":"Y","in_practice":"Y","id":40573,"lat":53.743275,"lng":-0.334523,"location":1888,"html":"<div><strong>Graham Ward Nettleton<\/strong><br>Email: <a href='mailto:GWN@brewerwallace.co.uk'>GWN@brewerwallace.co.uk<\/a><br>Phone: GWN@brewerwallace.co.uk<br>Website: <a href='www.brewerwallace.co.uk'>www.brewerwallace.co.uk<\/a><br>Fax: 01482 213288<br>Address: Brewer Wallace Solicitors, Shackles Chambers \n7 Land of Green Ginger \nHull \nEast Yorkshire<\/div>"});
+								 	results_places.push({"name":"Kevin Ross Ogle","email":"kro@brewerwallace.co.uk","address":"Brewer Wallace Solicitors \n7 Land of Green Ginger \nHull","website":"","phone":"01482 221131","mobile":"","fax":"01482 213288","is_member":"Y","in_practice":"Y","id":41867,"lat":53.743275,"lng":-0.334523,"location":1993,"html":"<div><strong>Kevin Ross Ogle<\/strong><br>Email: <a href='mailto:kro@brewerwallace.co.uk'>kro@brewerwallace.co.uk<\/a><br>Phone: kro@brewerwallace.co.uk<br>Website: <a href=''><\/a><br>Fax: 01482 213288<br>Address: Brewer Wallace Solicitors \n7 Land of Green Ginger \nHull<\/div>"});
+								 	results_places.push({"name":"Dominic John Ward","email":"dominic.ward@andrewjackson.co.uk","address":"Marina Court \nCastle Street \nHull \nEast Yorkshire","website":"","phone":"01482 325242","mobile":"","fax":"01482 212974","is_member":"Y","in_practice":"Y","id":39763,"lat":53.740635,"lng":-0.336644,"location":1559,"html":"<div><strong>Dominic John Ward<\/strong><br>Email: <a href='mailto:dominic.ward@andrewjackson.co.uk'>dominic.ward@andrewjackson.co.uk<\/a><br>Phone: dominic.ward@andrewjackson.co.uk<br>Website: <a href=''><\/a><br>Fax: 01482 212974<br>Address: Marina Court \nCastle Street \nHull \nEast Yorkshire<\/div>"});
+								 	results_places.push({"name":"Daniel John Hammond","email":"daniel.hammond@andrewjackson.co.uk","address":"Andrew M Jackson \nMarina Court, Castle Street \nHull \nEast Yorkshire","website":"www.andrewjackson.co.uk","phone":"01482 601295","mobile":"","fax":"01482 212974","is_member":"Y","in_practice":"Y","id":41062,"lat":53.74101,"lng":-0.340758,"location":1714,"html":"<div><strong>Daniel John Hammond<\/strong><br>Email: <a href='mailto:daniel.hammond@andrewjackson.co.uk'>daniel.hammond@andrewjackson.co.uk<\/a><br>Phone: daniel.hammond@andrewjackson.co.uk<br>Website: <a href='www.andrewjackson.co.uk'>www.andrewjackson.co.uk<\/a><br>Fax: 01482 212974<br>Address: Andrew M Jackson \nMarina Court, Castle Street \nHull \nEast Yorkshire<\/div>"});
+								 	results_places.push({"name":"Francis Howard Gilyott","email":"","address":"15 Carisbrooke Avenue \nCottingham \nEast Yorkshire","website":"","phone":"01482 849789","mobile":"","fax":"","is_member":"Y","in_practice":"Y","id":39206,"lat":53.779703,"lng":-0.412108,"location":1998,"html":"<div><strong>Francis Howard Gilyott<\/strong><br>Email: <a href='mailto:'><\/a><br>Phone: <br>Website: <a href=''><\/a><br>Fax: <br>Address: 15 Carisbrooke Avenue \nCottingham \nEast Yorkshire<\/div>"});
+								 	results_places.push({"name":"Neil Leonard Oakes","email":"nlo@notary-public-hull.co.uk","address":"1 St Andrew's Mount \nKirk Ella \nHull \nEast Yorkshire","website":"www.notary-public-hull.co.uk","phone":"01482 650541","mobile":"07583 379147","fax":"","is_member":"Y","in_practice":"Y","id":39504,"lat":53.754362,"lng":-0.453547,"location":1077,"html":"<div><strong>Neil Leonard Oakes<\/strong><br>Email: <a href='mailto:nlo@notary-public-hull.co.uk'>nlo@notary-public-hull.co.uk<\/a><br>Phone: nlo@notary-public-hull.co.uk<br>Website: <a href='www.notary-public-hull.co.uk'>www.notary-public-hull.co.uk<\/a><br>Fax: <br>Address: 1 St Andrew's Mount \nKirk Ella \nHull \nEast Yorkshire<\/div>"});
+								 	results_places.push({"name":"Brian Warren Bowers Pettifer","email":"bwbpettifer@gmail.com","address":"Cob Hall \nPriestgate \nBarton on Humber \nNorth Lincolnshire","website":"www.brianpettifer.co.uk","phone":"01652 632248","mobile":"","fax":"","is_member":"Y","in_practice":"Y","id":39543,"lat":53.683585,"lng":-0.43847,"location":1515,"html":"<div><strong>Brian Warren Bowers Pettifer<\/strong><br>Email: <a href='mailto:bwbpettifer@gmail.com'>bwbpettifer@gmail.com<\/a><br>Phone: bwbpettifer@gmail.com<br>Website: <a href='www.brianpettifer.co.uk'>www.brianpettifer.co.uk<\/a><br>Fax: <br>Address: Cob Hall \nPriestgate \nBarton on Humber \nNorth Lincolnshire<\/div>"});
+								 	results_places.push({"name":"Christopher Barrett Wilson","email":"christopherbwilson1@ntlworld.com","address":"The Old Courthouse \n42 Brighowgate \nGrimsby \nNorth East Lincolnshire","website":"","phone":"01472 357291","mobile":"","fax":"01472 241118","is_member":"Y","in_practice":"Y","id":39802,"lat":53.564339,"lng":-0.086894,"location":1567,"html":"<div><strong>Christopher Barrett Wilson<\/strong><br>Email: <a href='mailto:christopherbwilson1@ntlworld.com'>christopherbwilson1@ntlworld.com<\/a><br>Phone: christopherbwilson1@ntlworld.com<br>Website: <a href=''><\/a><br>Fax: 01472 241118<br>Address: The Old Courthouse \n42 Brighowgate \nGrimsby \nNorth East Lincolnshire<\/div>"});
+								 	results_places.push({"name":"John Martin Wood","email":"MartinWood@woodsherwood.co.uk","address":"6-10 Railway Street \nPocklington \nYork \nEast Yorkshire","website":"www.notarypublicyork-martinwood.co.uk","phone":"01759 302791","mobile":"","fax":"01759 305269","is_member":"Y","in_practice":"Y","id":39816,"lat":53.930023,"lng":-0.780634,"location":866,"html":"<div><strong>John Martin Wood<\/strong><br>Email: <a href='mailto:MartinWood@woodsherwood.co.uk'>MartinWood@woodsherwood.co.uk<\/a><br>Phone: MartinWood@woodsherwood.co.uk<br>Website: <a href='www.notarypublicyork-martinwood.co.uk'>www.notarypublicyork-martinwood.co.uk<\/a><br>Fax: 01759 305269<br>Address: 6-10 Railway Street \nPocklington \nYork \nEast Yorkshire<\/div>"});
+				
+	function initialize(){
+
+		latlngs = [];
+		infoWindows = [];
+		markers = [];
+
+		if('places' == 'people'){
+			if(results.length == 0)
+			{
+				results = results_people;
+				$('#notatries_people').show();
+			}
+		} else {
+			if(results.length == 0)
+			{
+				results = results_places;
+				$('#notatries_places').show();
+			}
+		}
+
+
+		var mapOptions = {
+		  center: new google.maps.LatLng(53.4833, -2.1667),
+		  zoom: 8,
+		  disableDefaultUI: true,
+		  scrollwheel: false
+		};
+
+		var map = new google.maps.Map(document.getElementById("map"),
+			mapOptions);
+
+		for(var i = 0; i < results.length; i++){
+
+			if(results[i].lat){
+			 	var temp_latlng = new google.maps.LatLng(results[i].lat, results[i].lng);
+
+			 	var marker = new google.maps.Marker({
+			 		position: temp_latlng,
+			 		title: results[i].name,
+			 		html: results[i].html,
+			 		id: results[i].id,
+			 		location: results[i].location,
+			 		//animation:google.maps.Animation.DROP,
+			 		icon:(results[i].in_practice != 'Y') ? "/includes/mapmarker.php?blue&no="+(i+1) : "/includes/mapmarker.php?no="+(i+1),
+			 		map: map
+			 	});
+
+			 	var infoWindow = new google.maps.InfoWindow({
+			 		content: marker.html
+			 	});
+
+			 	latlngs.push(temp_latlng);
+			 	infoWindows.push(infoWindow);
+			 	markers.push(marker);
+
+			 	google.maps.event.addListener(marker, 'click', function(){
+
+			 		var indx = markers.indexOf(this);
+			 		window.location.href = '/find-a-notary?notary='+markers[indx].id+'&location='+markers[indx].location+'&search=hull';
+
+			 	});
+
+			}
+		}
+
+		
+			var mc = new MarkerClusterer(map, markers);
+
+			var bounds = new google.maps.LatLngBounds();
+			for(marker in markers){
+				bounds.extend(markers[marker].position);
+			}
+			map.fitBounds(bounds);
+
+		
+
+		if(markers.length <= 2)
+		{
+			var listener = google.maps.event.addListener(map, "idle", function() {
+			  map.setZoom(map.getZoom() - 2)
+			  google.maps.event.removeListener(listener);
+			});
+		}
+
+	}
+
+	$(function(){
+
+		initialize();
+
+		$('#map_people').click(function(){
+			results = results_people;
+			$('#map').html('');
+			$('#map_people').addClass('current');
+			$('#map_places').removeClass('current');
+			$('#notatries_people').show();
+			$('#notatries_places').hide();
+			initialize();
+		});
+		$('#map_places').click(function(){
+			results = results_places;
+			$('#map_people').removeClass('current');
+			$('#map_places').addClass('current');
+			$('#map').html('');
+			$('#notatries_people').hide();
+			$('#notatries_places').show();
+			initialize();
+		});
+	});
+	</script>
+
+	<div class="content columns">
+			<h2 style="display: inline-block">We found 10  notaries matching "hull"</h2>
+
+			
+				<ul id="map_switcher" style="text-align: left; margin-top: -3px; color: #666;">
+					<p style="display: inline; line-height: 0px; text-align: left !important;">
+						<img src="/images/map_pin_group.png" style="height: 40px; vertical-align: text-bottom; margin-top: 3px; float: left; margin-right: 10px;">
+						Indicates notaries in close proximity to one another
+					</p>
+				</ul>
+
+			
+			
+			<p>Below you can find a list of all members of the Notaries Society operating in this area. Each result supplies you with both the Notaries Name and contact details, as well as their address. You will need to make an appointment to see the notary.  They will charge a fee, but you can ask for an estimate when making your appointment.  You will have to produce identitfication.</p>
+
+			
+
+		<p></p>
+
+
+
+		<ul id="notatries_people">
+						</ul>
+
+		<ul id="notatries_places">
+						
+				
+<li class="even" id="notary-places-0">
+
+	
+		<img src="/includes/mapmarker.php?no=1" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=40746&search=hull" style="text-decoration: none;">
+		<h3> Mr Stephen Walker</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:sw@gosschalks.co.uk" class="email">sw@gosschalks.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="http://www.gosschalks.co.uk" class="website" target="_blank">www.gosschalks.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="tel:01482 324252" class="phone">01482 324252</a>
+				
+					</p>
+
+
+
+	<p>
+					<a class="fax">0870 600 5962</a>
+					</p>
+
+	<p>
+					<a class="dx">DX 11902 Hull</a>
+					</p>
+
+	<p class="address long">
+
+		Gosschalks Solicitors <br />
+Queens Gardens <br />
+Hull <br />
+Kingston upon Hull<br>
+		HU1 3DZ
+	</p>
+
+
+	
+</li>
+
+
+			
+				
+<li class="odd" id="notary-places-1">
+
+	
+		<img src="/includes/mapmarker.php?no=2" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=40573&search=hull" style="text-decoration: none;">
+		<h3> Mr Graham Ward Nettleton</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:GWN@brewerwallace.co.uk" class="email">GWN@brewerwallace.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="http://www.brewerwallace.co.uk" class="website" target="_blank">www.brewerwallace.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="tel:01482 221130" class="phone">01482 221130</a>
+				
+					<a href="tel:07875 698108" class="mobile">07875 698108</a>
+					</p>
+
+
+
+	<p>
+					<a class="fax">01482 213288</a>
+					</p>
+
+	<p>
+					</p>
+
+	<p class="address long">
+
+		Brewer Wallace Solicitors, Shackles Chambers <br />
+7 Land of Green Ginger <br />
+Hull <br />
+East Yorkshire<br>
+		HU1 2ED
+	</p>
+
+
+	
+</li>
+
+
+	<script>
+
+		$(function(){
+
+			rightHeight = $('#notary-places-1').height();
+			leftHeight = $('li#notary-places-1').prev().height();
+
+			if(rightHeight > leftHeight)
+			{
+				$('#notary-places-1').prev().css('height', rightHeight);
+			} else {
+				$('#notary-places-1').css('height', leftHeight);
+			}
+
+		});
+
+	</script>
+
+
+			
+				
+<li class="even" id="notary-places-2">
+
+	
+		<img src="/includes/mapmarker.php?no=3" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=41867&search=hull" style="text-decoration: none;">
+		<h3> Mr Kevin Ross Ogle</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:kro@brewerwallace.co.uk" class="email">kro@brewerwallace.co.uk</a><br>
+					</p>
+
+	<p>
+					</p>
+
+	<p>
+					<a href="tel:01482 221131" class="phone">01482 221131</a>
+				
+					</p>
+
+
+
+	<p>
+					<a class="fax">01482 213288</a>
+					</p>
+
+	<p>
+					</p>
+
+	<p class="address long">
+
+		Brewer Wallace Solicitors <br />
+7 Land of Green Ginger <br />
+Hull<br>
+		HU1 2ED
+	</p>
+
+
+	
+</li>
+
+
+			
+				
+<li class="odd" id="notary-places-3">
+
+	
+		<img src="/includes/mapmarker.php?no=4" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=39763&search=hull" style="text-decoration: none;">
+		<h3> Mr Dominic John Ward</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:dominic.ward@andrewjackson.co.uk" class="email">dominic.ward@andrewjackson.co.uk</a><br>
+					</p>
+
+	<p>
+					</p>
+
+	<p>
+					<a href="tel:01482 325242" class="phone">01482 325242</a>
+				
+					</p>
+
+
+
+	<p>
+					<a class="fax">01482 212974</a>
+					</p>
+
+	<p>
+					<a class="dx">MDX 11920 Hull</a>
+					</p>
+
+	<p class="address long">
+
+		Marina Court <br />
+Castle Street <br />
+Hull <br />
+East Yorkshire<br>
+		HU1 1TJ
+	</p>
+
+
+	
+</li>
+
+
+	<script>
+
+		$(function(){
+
+			rightHeight = $('#notary-places-3').height();
+			leftHeight = $('li#notary-places-3').prev().height();
+
+			if(rightHeight > leftHeight)
+			{
+				$('#notary-places-3').prev().css('height', rightHeight);
+			} else {
+				$('#notary-places-3').css('height', leftHeight);
+			}
+
+		});
+
+	</script>
+
+
+			
+				
+<li class="even" id="notary-places-4">
+
+	
+		<img src="/includes/mapmarker.php?no=5" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=41062&search=hull" style="text-decoration: none;">
+		<h3> Mr Daniel John Hammond</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:daniel.hammond@andrewjackson.co.uk" class="email">daniel.hammond@andrewjackson.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="http://www.andrewjackson.co.uk" class="website" target="_blank">www.andrewjackson.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="tel:01482 601295" class="phone">01482 601295</a>
+				
+					</p>
+
+
+
+	<p>
+					<a class="fax">01482 212974</a>
+					</p>
+
+	<p>
+					<a class="dx">DX 11920 Hull 1</a>
+					</p>
+
+	<p class="address long">
+
+		Andrew M Jackson <br />
+Marina Court, Castle Street <br />
+Hull <br />
+East Yorkshire<br>
+		HU1 1TJ
+	</p>
+
+
+	
+</li>
+
+
+			
+				
+<li class="odd" id="notary-places-5">
+
+	
+		<img src="/includes/mapmarker.php?no=6" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=39206&search=hull" style="text-decoration: none;">
+		<h3> Mr Francis Howard Gilyott</h3>
+	</a>
+
+	
+	<p>
+					</p>
+
+	<p>
+					</p>
+
+	<p>
+					<a href="tel:01482 849789" class="phone">01482 849789</a>
+				
+					</p>
+
+
+
+	<p>
+					</p>
+
+	<p>
+					</p>
+
+	<p class="address long">
+
+		15 Carisbrooke Avenue <br />
+Cottingham <br />
+East Yorkshire<br>
+		HU16 4DX
+	</p>
+
+
+	
+</li>
+
+
+	<script>
+
+		$(function(){
+
+			rightHeight = $('#notary-places-5').height();
+			leftHeight = $('li#notary-places-5').prev().height();
+
+			if(rightHeight > leftHeight)
+			{
+				$('#notary-places-5').prev().css('height', rightHeight);
+			} else {
+				$('#notary-places-5').css('height', leftHeight);
+			}
+
+		});
+
+	</script>
+
+
+			
+				
+<li class="even" id="notary-places-6">
+
+	
+		<img src="/includes/mapmarker.php?no=7" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=39504&search=hull" style="text-decoration: none;">
+		<h3> Mr Neil Leonard Oakes</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:nlo@notary-public-hull.co.uk" class="email">nlo@notary-public-hull.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="http://www.notary-public-hull.co.uk" class="website" target="_blank">www.notary-public-hull.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="tel:01482 650541" class="phone">01482 650541</a>
+				
+					<a href="tel:07583 379147" class="mobile">07583 379147</a>
+					</p>
+
+
+
+	<p>
+					</p>
+
+	<p>
+					</p>
+
+	<p class="address long">
+
+		1 St Andrew's Mount <br />
+Kirk Ella <br />
+Hull <br />
+East Yorkshire<br>
+		HU10 7TD
+	</p>
+
+
+	
+</li>
+
+
+			
+				
+<li class="odd" id="notary-places-7">
+
+	
+		<img src="/includes/mapmarker.php?no=8" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=39543&search=hull" style="text-decoration: none;">
+		<h3> Mr Brian Warren Bowers Pettifer</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:bwbpettifer@gmail.com" class="email">bwbpettifer@gmail.com</a><br>
+					</p>
+
+	<p>
+					<a href="http://www.brianpettifer.co.uk" class="website" target="_blank">www.brianpettifer.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="tel:01652 632248" class="phone">01652 632248</a>
+				
+					</p>
+
+
+
+	<p>
+					</p>
+
+	<p>
+					</p>
+
+	<p class="address ">
+
+		Cob Hall <br />
+Priestgate <br />
+Barton on Humber <br />
+North Lincolnshire<br>
+		DN18 5ET
+	</p>
+
+
+		<p class="address">
+
+		Temple Chambers <br />
+Abbey Road <br />
+Grimsby <br />
+North East Lincolnshire<br>
+		DN32 0HF
+	</p>
+	
+</li>
+
+
+	<script>
+
+		$(function(){
+
+			rightHeight = $('#notary-places-7').height();
+			leftHeight = $('li#notary-places-7').prev().height();
+
+			if(rightHeight > leftHeight)
+			{
+				$('#notary-places-7').prev().css('height', rightHeight);
+			} else {
+				$('#notary-places-7').css('height', leftHeight);
+			}
+
+		});
+
+	</script>
+
+
+			
+				
+<li class="even" id="notary-places-8">
+
+	
+		<img src="/includes/mapmarker.php?no=9" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=39802&search=hull" style="text-decoration: none;">
+		<h3> Mr Christopher Barrett Wilson</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:christopherbwilson1@ntlworld.com" class="email">christopherbwilson1@ntlworld.com</a><br>
+					</p>
+
+	<p>
+					</p>
+
+	<p>
+					<a href="tel:01472 357291" class="phone">01472 357291</a>
+				
+					</p>
+
+
+
+	<p>
+					<a class="fax">01472 241118</a>
+					</p>
+
+	<p>
+					<a class="dx">DX 13512 Grimsby 1</a>
+					</p>
+
+	<p class="address long">
+
+		The Old Courthouse <br />
+42 Brighowgate <br />
+Grimsby <br />
+North East Lincolnshire<br>
+		DN32 0QW
+	</p>
+
+
+	
+</li>
+
+
+			
+				
+<li class="odd" id="notary-places-9">
+
+	
+		<img src="/includes/mapmarker.php?no=10" class="map_pin">
+
+	
+
+	<a href="/find-a-notary?notary=39816&search=hull" style="text-decoration: none;">
+		<h3> Mr John Martin Wood</h3>
+	</a>
+
+	
+	<p>
+					<a href="mailto:MartinWood@woodsherwood.co.uk" class="email">MartinWood@woodsherwood.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="http://www.notarypublicyork-martinwood.co.uk" class="website" target="_blank">www.notarypublicyork-martinwood.co.uk</a><br>
+					</p>
+
+	<p>
+					<a href="tel:01759 302791" class="phone">01759 302791</a>
+				
+					</p>
+
+
+
+	<p>
+					<a class="fax">01759 305269</a>
+					</p>
+
+	<p>
+					<a class="dx">DX 68531 Pocklington</a>
+					</p>
+
+	<p class="address long">
+
+		6-10 Railway Street <br />
+Pocklington <br />
+York <br />
+East Yorkshire<br>
+		YO42 2QZ
+	</p>
+
+
+	
+</li>
+
+
+	<script>
+
+		$(function(){
+
+			rightHeight = $('#notary-places-9').height();
+			leftHeight = $('li#notary-places-9').prev().height();
+
+			if(rightHeight > leftHeight)
+			{
+				$('#notary-places-9').prev().css('height', rightHeight);
+			} else {
+				$('#notary-places-9').css('height', leftHeight);
+			}
+
+		});
+
+	</script>
+
+
+					</ul>
+
+		<script>
+			$(function(){
+
+				if('places' == 'people'){
+						$('#notatries_places').hide();
+				} else {
+
+						$('#notatries_people').hide();
+				}
+
+			})
+		</script>
+
+	</div>
+
+		
+	<div class="push"></div>
+	</div>
+
+	<!-- Footer -->
+	<footer>
+		<div class="content">
+			<span id="copyright">Copyright 2015 The Notaries Society | Web Design and Development by <a href="http://v4technical.com">V4 Technical Ltd</a></span>
+		</div>
+	</footer>
+
+
+	<script type="text/javascript">
+			</script>
+
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-15181484-1");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+
+	</body>
+	</html>
+	

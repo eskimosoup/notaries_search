@@ -2,7 +2,7 @@ class NotariesSocietyUpload < ActiveRecord::Base
   establish_connection :notaries_society_development if Rails.env.development?
   establish_connection :notaries_society_production if Rails.env.production?
   self.table_name = 'users'
-  
+
   def self.import
     all.find_each do |user|
       new_member =  Member.create(user.member_attrs)
@@ -12,7 +12,7 @@ class NotariesSocietyUpload < ActiveRecord::Base
     end
     MemberLocation.batch_geocode
   end
-  
+
   def member_attrs
     {
       contact_id: contact_id,
@@ -31,7 +31,7 @@ class NotariesSocietyUpload < ActiveRecord::Base
       modified: modified
     }
   end
-  
+
   def membership_details_attrs
     {
       country_code: country_code,
@@ -57,10 +57,10 @@ class NotariesSocietyUpload < ActiveRecord::Base
       date_died: date_died
     }
   end
-  
+
   def location_attrs
     {
-      dx_number: dx_number, 
+      dx_number: dx_number,
       contact_phone: contact_phone,
       contact_mobile: contact_mobile,
       fax: fax,
@@ -71,7 +71,7 @@ class NotariesSocietyUpload < ActiveRecord::Base
       postcode: postcode
     }
   end
-  
+
   def location2_attrs
     {
       dx_number: dx_number2,
