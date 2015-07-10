@@ -12,13 +12,13 @@ class Member < ActiveRecord::Base
       search_type = 'OR'
     end
     if show_all.present?
-      where(" firstname LIKE :first #{search_type} lastname LIKE :last ", first: "#{first}%", last: "#{last}%").limit(10).order(:firstname, :lastname)
+      where(" firstname LIKE :first #{search_type} lastname LIKE :last ", first: "#{first}%", last: "#{last}%").order(:firstname, :lastname)
     else
       where(" firstname LIKE :first #{search_type} lastname LIKE :last ", first: "#{first}%", last: "#{last}%").in_practice.order(:firstname, :lastname)
     end
   end
 
-  def self.in_practice(limit = 10)
-    joins(:membership_detail).where(membership_details: { in_practice: 'Y' }).limit(limit)
+  def self.in_practice(limit = nil)
+    joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).limit(limit)
   end
 end

@@ -55,12 +55,14 @@ $(function(){
 
 <div class="content">
 
-	<% if params[:search].present? %>
 		<div style="position:absolute; left: 0; top: -50px; z-index: 9999999;">
-      <%= link_to '&larr; Back to search results'.html_safe, root_path(search_term: params[:search], radius: params[:radius]), class: 'btn' %>
+			<% if params[:search].present? %>
+      	<%= link_to '&larr; Back to search results'.html_safe, root_path(search_term: params[:search], radius: params[:radius]), class: 'btn' %>
+			<% elsif params[:name].present? %>
+				<%= link_to '&larr; Back to search results'.html_safe, root_path(name: params[:name]), class: 'btn' %>
+			<% end %>
     </div>
 		<br>
-	<% end %>
 
 	<h2><%= @member.title %> <%= @member.firstname %> <%= @member.lastname %></h2>
 
@@ -118,11 +120,20 @@ $(function(){
 	<section id="col-two">
     <% # do this for more control over the paragraph %>
     <% @member.member_locations.group_by(&:address).each do |(address, location)| %>
-      <p class="address <%= 'long' if @member.member_locations.last.blank? %>">
-        <%= address.gsub(/\n/, '<br />').html_safe %>
-        <br />
-        <%= location[0].postcode if location[0].present? %>
-      </p>
+			<div style="overflow:hidden;">
+	      <p class="address">
+	        <%= address.gsub(/\n/, '<br />').html_safe %>
+	        <br />
+	        <%= location[0].postcode if location[0].present? %>
+	      </p>
+
+				<%= form_tag 'https://maps.google.com', target: '_blank', method: :get, class: 'locations-form' do %>
+					<%= label_tag :daddr, "Get directions" %>
+					<%= text_field_tag :saddr, nil, placeholder: 'Enter your location' %><br />
+					<%= hidden_field_tag :daddr, "#{address}+#{location[0].postcode if location[0].present?}" %>
+					<%= submit_tag "Show directions" %>
+				<% end %>
+			</div>
     <% end %>
 	</section>
 

@@ -1,9 +1,17 @@
-<form id="map_search" action="" method="get">
-	<input name="name" type="text" value="<%= params[:name] %>">
-	<input name="search_term" type="text" value="<%= params[:search_term] %>">
-  <%= select_tag :radius, options_for_select([1, 2, 5, 10, 20], params[:radius] || 5) %>
-	<input type="submit" class="inline-search-button" style="line-height: 34px; margin-top:11px;" value="&rarr;">
-</form>
+<%= form_tag '', method: :get, class: 'people-search-form' do %>
+	<%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
+	<%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
+<% end %>
+
+<%= form_tag '', method: :get, class: 'location-search-form' do %>
+	<%= text_field_tag :search_term, params[:search_term], placeholder: 'Enter an address' %>
+	<%= field_set_tag do %>
+		<%= label_tag :radius, "Within" %>
+	  <%= select_tag :radius, options_for_select(["1 miles", "2 miles", "5 miles", "10 miles", "20 miles"], "#{@radius} miles") %>
+		of
+	<% end %>
+	<%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
+<% end %>
 
 <div id="map" style="width:100%; height:400px;"></div>
 
@@ -77,7 +85,7 @@
     <% end %>
 
 		var mapOptions = {
-		  center: new google.maps.LatLng(53.4833, -2.1667),
+		  center: new google.maps.LatLng(53.4924471, -0.9721805),
 		  zoom: 8,
 		  disableDefaultUI: true,
 		  scrollwheel: false
@@ -115,7 +123,14 @@
 		}
 
 		var mc = new MarkerClusterer(map, markers);
-		var bounds = new google.maps.LatLngBounds();
+
+		var bounds;
+
+		if (markers.length !== 0) {
+			bounds = new google.maps.LatLngBounds();
+		}
+
+
 
 		for(marker in markers) {
 			bounds.extend(markers[marker].position);
@@ -158,7 +173,16 @@
 
 <div class="content columns">
   <% if @member_locations.present? %>
-    <h2 style="display: inline-block">We found <%= @member_locations.size %>  notaries within <%= params[:radius] %> miles of "<%= params[:search_term] %>"</h2>
+    <h2 style="display: inline-block">We found <%= @member_locations.size %>  notaries within <%= @radius %> miles of "<%= params[:search_term] %>"</h2>
+
+		<% if @member_locations_count.size > 10 %>
+    	<h3>There are <strong><%= @member_locations_count.size %> within <%= @radius %> miles of "<%= params[:search_term] %>"</strong>, please try to be more specific.</h3>
+		<% end %>
+
+		<% unless params[:radius].to_i == @radius %>
+			<p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
+		<% end %>
+
   <% end %>
   <% if @members.present? %>
     <h2 style="display: inline-block">We found <%= @members.size %>  notaries matching "<%= params[:name] %>"</h2>
