@@ -1,11 +1,11 @@
 <li class="<%= cycle 'even', 'odd' %>" id="notary-places-<%= i %>">
   <% if member_location.member.membership_detail.in_practice == 'N' %>
-    <img src="http://www.thenotariessociety.org.uk/includes/mapmarker.php?blue&no=<%= i %>" class="map_pin">
+    <%= image_tag "http://www.thenotariessociety.org.uk/includes/mapmarker.php?blue&no=#{i}", class: "map_pin" %>
   <% else %>
-    <img src="http://www.thenotariessociety.org.uk/includes/mapmarker.php?no=<%= i %>" class="map_pin">
+    <%= image_tag "http://www.thenotariessociety.org.uk/includes/mapmarker.php?no=#{i}", class: "map_pin" %>
   <% end %>
 
-  <%= link_to member_path(notary: member_location.member.id, search_term: params[:search_term], radius: params[:radius]), style: 'text-decoration:none', title: 'View notary' do %>
+  <%= link_to member_path(notary: member_location.member.id, search: params[:search_term], radius: params[:radius]), style: 'text-decoration:none', title: 'View notary' do %>
     <h3> <%= member_location.member.title %> <%= member_location.member.firstname %> <%= member_location.member.lastname %></h3>
   <% end %>
 
@@ -13,47 +13,5 @@
     <p> <em>No longer in practice</em> </p>
   <% end %>
 
-    <p>
-      <% if member_location.member.email.present? %>
-        <%= mail_to member_location.member.email, member_location.member.email, class: 'email' %>
-      <% elsif member_location.email.present? %>
-        <%= mail_to member_location.email, member_location.email, class: 'email' %>
-      <% end %>
-    </p>
-
-    <% if member_location.website.present? %>
-      <p>
-        <%= link_to member_location.website, member_location.website, class: 'website', target: '_blank' %>
-      </p>
-    <% end %>
-
-    <p>
-      <% if member_location.contact_phone.present? %>
-        <a href="tel:<%= member_location.contact_phone %>" class="phone"><%= member_location.contact_phone %></a>
-      <% end %>
-      <% if member_location.contact_mobile.present? %>
-        <a href="tel:<%= member_location.contact_mobile %>" class="mobile"><%= member_location.contact_mobile %></a>
-      <% end %>
-    </p>
-
-    <% if member_location.fax.present? %>
-      <p>
-        <a class="fax"><%= member_location.fax %></a>
-      </p>
-    <% end %>
-
-    <% if member_location.dx_number.present? %>
-      <p>
-        <a class="dx"><%= member_location.dx_number %></a>
-      </p>
-    <% end %>
-
-    <% if member_location.address.present? %>
-      <% # do this for more control over the paragraph %>
-      <p class="address long">
-        <%= member_location.address.gsub(/\n/, '<br />').html_safe %>
-        <br />
-        <%= member_location.postcode if member_location.postcode.present? %>
-      </p>
-    <% end %>
+  <%= render 'members/details', details: member_location.member.member_locations, individual: member_location.member %>
 </li>

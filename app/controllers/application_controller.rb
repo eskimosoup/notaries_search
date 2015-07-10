@@ -6,10 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :global_site_settings
 
   def index
-    #MemberLocation.name_search('stephen', false).to_yaml
-    #@member_locations = MemberLocation.near(params[:location], params[:radius] || 5).joins(:membership_detail).where(membership_details: { in_practice: 'Y' }) if params[:location].present?
-
-    @member_locations = MemberLocation.location_search(params[:search_term], params[:radius], cookies[:allowed]) if params[:search_term].present?
+    # Yes, this is horrible. Yes, I want to fix it. No, I don't know how to implement componentRestrictions with Geocoder gem. 
+    @member_locations = MemberLocation.location_search("#{params[:search_term]}+United+Kingdom", params[:radius], cookies[:allowed]) if params[:search_term].present?
     @members = Member.name_search(params[:name], cookies[:allowed]) if params[:name].present?
   end
 

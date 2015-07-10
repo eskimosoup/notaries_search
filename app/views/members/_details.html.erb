@@ -1,0 +1,53 @@
+<p>
+  <%= mail_to individual.email, individual.email, class: 'email' if individual.email.present? %>
+
+  <% details.group_by(&:email).each do |item, location| %>
+    <% next if item.blank? %>
+    <%= mail_to item, item, class: 'email' unless item == individual.email %>
+  <% end %>
+</p>
+
+<p>
+  <% details.group_by(&:website).each do |item, location| %>
+    <% next if item.blank? %>
+    <%= link_to item, item, class: 'website', target: '_blank' %>
+  <% end %>
+</p>
+
+<p>
+  <% details.group_by(&:contact_phone).each do |item, location| %>
+    <% next if item.blank? %>
+    <%= link_to item, "tel:#{item}", class: 'phone' %>
+  <% end %>
+</p>
+
+<p>
+  <% details.group_by(&:contact_mobile).each do |item, location| %>
+    <% next if item.blank? %>
+    <%= link_to item, "tel:#{item}", class: 'mobile' %>
+  <% end %>
+</p>
+
+<p>
+  <% details.group_by(&:fax).each do |item, location| %>
+    <% next if item.blank? %>
+    <%= link_to item, "", class: 'fax' %>
+  <% end %>
+</p>
+
+<p>
+  <% details.group_by(&:dx_number).each_with_index do |(item, location), index| %>
+    <% next if item.blank? %>
+    <%= raw '<br />' if index >= 1 %>
+    <%= link_to item, "", class: 'dx' %>
+  <% end %>
+</p>
+
+<% # do this for more control over the paragraph %>
+<% details.group_by(&:address).each do |(address, location)| %>
+  <p class="address <%= 'long' if details.last.blank? %>">
+    <%= address.gsub(/\n/, '<br />').html_safe %>
+    <br />
+    <%= location[0].postcode if location[0].present? %>
+  </p>
+<% end %>

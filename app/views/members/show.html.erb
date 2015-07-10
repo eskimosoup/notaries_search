@@ -1,0 +1,135 @@
+<div id="map" style="width:100%; height:400px;"></div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXisOrjsA8EKH7jz9UEXV2TtUu5GeKAdo&sensor=false"></script>
+
+<script type="text/javascript">
+function initialize() {
+	var markers = [];
+
+	var mapOptions = {
+	  center: new google.maps.LatLng(-34.397, 150.644),
+	  zoom: 1,
+	  disableDefaultUI: true,
+	  scrollwheel: false
+	};
+
+	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+	var locations = <%= raw @member.member_locations.to_json %>;
+
+	for(var location in locations) {
+		var temp_latlng = new google.maps.LatLng(locations[location]['latitude'], locations[location]['longitude']);
+    console.log(temp_latlng)
+		var marker = new google.maps.Marker({
+		 	position: temp_latlng,
+		 	<% if @member.membership_detail.in_practice == 'N' %>
+		 		icon: "http://www.thenotariessociety.org.uk/includes/mapmarker.php?blue&no="+  ((locations.length > 1)?(parseInt(location)+1) : ''),
+		 	<% else %>
+		 		icon: "http://www.thenotariessociety.org.uk/includes/mapmarker.php?no="+  ((locations.length > 1)?(parseInt(location)+1) : ''),
+		 	<% end %>
+		 	map: map
+		});
+
+		markers.push(marker);
+	}
+
+	var bounds = new google.maps.LatLngBounds();
+
+  for(marker in markers) {
+		bounds.extend(markers[marker].position);
+	}
+
+	bounds.zoom = bounds.zoom - 2;
+
+	map.fitBounds(bounds);
+
+	var listener = google.maps.event.addListener(map, "idle", function() {
+	  map.setZoom(map.getZoom() - 1)
+	  google.maps.event.removeListener(listener);
+	});
+}
+
+$(function(){
+	initialize();
+});
+</script>
+
+
+<div class="content">
+
+	<% if params[:search].present? %>
+		<div style="position:absolute; left: 0; top: -50px; z-index: 9999999;">
+      <%= link_to '&larr; Back to search results'.html_safe, root_path(search_term: params[:search], radius: params[:radius]), class: 'btn' %>
+    </div>
+		<br>
+	<% end %>
+
+	<h2><%= @member.title %> <%= @member.firstname %> <%= @member.lastname %></h2>
+
+  <% if @member.membership_detail.in_practice == 'N' %>
+ 		<p>
+			<em>No longer in practice</em>
+		</p>
+  <% end %>
+
+	<section id="col-one">
+    <p>
+      <%= mail_to @member.email, @member.email, class: 'email' if @member.email.present? %>
+
+      <% @member.member_locations.group_by(&:email).each do |item, location| %>
+        <% next if item.blank? %>
+        <%= mail_to item, item, class: 'email' unless item == @member.email %>
+      <% end %>
+    </p>
+
+    <p>
+      <% @member.member_locations.group_by(&:website).each do |item, location| %>
+        <% next if item.blank? %>
+        <%= link_to item, item, class: 'website', target: '_blank' %>
+      <% end %>
+    </p>
+
+    <p>
+      <% @member.member_locations.group_by(&:contact_phone).each do |item, location| %>
+        <% next if item.blank? %>
+        <%= link_to item, "tel:#{item}", class: 'phone' %>
+      <% end %>
+
+      <% @member.member_locations.group_by(&:contact_mobile).each do |item, location| %>
+        <% next if item.blank? %>
+        <%= link_to item, "tel:#{item}", class: 'mobile' %>
+      <% end %>
+    </p>
+
+    <p>
+      <% @member.member_locations.group_by(&:fax).each do |item, location| %>
+        <% next if item.blank? %>
+        <%= link_to item, "", class: 'fax' %>
+      <% end %>
+    </p>
+
+    <p>
+      <% @member.member_locations.group_by(&:dx_number).each_with_index do |(item, location), index| %>
+        <% next if item.blank? %>
+        <%= raw '<br />' if index >= 1 %>
+        <%= link_to item, "", class: 'dx' %>
+      <% end %>
+    </p>
+	</section>
+
+	<section id="col-two">
+    <% # do this for more control over the paragraph %>
+    <% @member.member_locations.group_by(&:address).each do |(address, location)| %>
+      <p class="address <%= 'long' if @member.member_locations.last.blank? %>">
+        <%= address.gsub(/\n/, '<br />').html_safe %>
+        <br />
+        <%= location[0].postcode if location[0].present? %>
+      </p>
+    <% end %>
+	</section>
+
+	<div style="clear:both"></div>
+
+	<br>
+
+	<p><%= @member.notes %></p>
+
+</div>
