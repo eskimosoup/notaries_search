@@ -1,8 +1,8 @@
 <li class="<%= cycle 'even', 'odd' %>" id="notary-people-<%= i %>">
   <% if member.membership_detail.in_practice == 'N' %>
-    <img src="http://www.thenotariessociety.org.uk/includes/mapmarker.php?blue&no=<%= i %>" class="map_pin">
+    <%= image_tag "http://www.thenotariessociety.org.uk/includes/mapmarker.php?blue&no=#{i}", class: "map_pin" %>
   <% else %>
-    <img src="http://www.thenotariessociety.org.uk/includes/mapmarker.php?no=<%= i %>" class="map_pin">
+    <%= image_tag "http://www.thenotariessociety.org.uk/includes/mapmarker.php?no=#{i}", class: "map_pin" %>
   <% end %>
 
   <%= link_to member_path(notary: member.id, name: params[:name]), style: 'text-decoration:none', title: 'View notary' do %>
@@ -13,53 +13,5 @@
     <p> <em>No longer in practice</em> </p>
   <% end %>
 
-  <p>
-    <%= mail_to member.email, member.email, class: 'email' if member.email.present? %>
-
-    <% member.member_locations.group_by(&:email).each do |item, location| %>
-      <% next if item.blank? %>
-      <%= mail_to item, item, class: 'email' unless item == member.email %>
-    <% end %>
-  </p>
-
-  <p>
-    <% member.member_locations.group_by(&:website).each do |item, location| %>
-      <% next if item.blank? %>
-      <a href="<%= item %>" class="website" target="_blank"><%= item %></a>
-    <% end %>
-  </p>
-
-  <p>
-    <% member.member_locations.group_by(&:contact_phone).each do |item, location| %>
-      <% next if item.blank? %>
-      <a href="tel:<%= item %>" class="phone"><%= item %></a>
-    <% end %>
-  </p>
-
-  <p>
-    <% member.member_locations.group_by(&:contact_mobile).each do |item, location| %>
-      <% next if item.blank? %>
-      <a href="tel:<%= item %>" class="mobile"><%= item %></a>
-    <% end %>
-  </p>
-
-  <p>
-    <% member.member_locations.group_by(&:fax).each do |item, location| %>
-      <% next if item.blank? %>
-      <a class="fax"><%= item %></a>
-    <% end %>
-  </p>
-
-  <p>
-    <% member.member_locations.group_by(&:dx_number).each_with_index do |(item, location), index| %>
-      <% next if item.blank? %>
-      <%= raw '<br />' if index >= 1 %>
-      <a class="dx"><%= item %></a>
-    <% end %>
-  </p>
-
-  <% # do this for more control over the paragraph %>
-  <% member.member_locations.group_by(&:address).each do |(address, location)| %>
-    <p class="address <%= 'long' if member.member_locations.last.blank? %>"><%= address.gsub(/\n/, '<br />').html_safe %> <br /> <%= location[0].postcode if location[0].present? %></p>
-  <% end %>
+  <%= render 'members/details', details: member.member_locations, individual: member %>
 </li>

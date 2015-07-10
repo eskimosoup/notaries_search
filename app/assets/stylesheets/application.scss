@@ -1,0 +1,135 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.locations-form {
+  label {
+    margin: 5px 0 !important;
+    padding-right: 20px;
+    float: left;
+    width: 44%;
+    color: #686868;
+  }
+
+  input[type='text'] {
+    padding: 5px;
+    width: 150px;
+    height: 25px;
+    outline: none;
+    border: 1px solid rgba(150, 150, 150, 0.41);
+    font-size: 14px;
+  }
+}
+
+%search-box {
+  background: #FFFFFF;
+  border: 0;
+  -moz-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.50);
+  font-size: 18px;
+  font-family: 'Avenir Next W01', "Avenir Next", "Avenir", Arial, sans-serif;
+  padding: 10px 15px 10px 40px;
+  outline: none;
+  background-image: url('http://thenotariessociety.org.uk/images/search.png');
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  background-size: 15px;
+  width: 188px;
+}
+
+%search-button {
+  position: absolute;
+  right: 1px;
+  top: -7px;
+}
+
+.location-search-form {
+  position: absolute;
+  z-index: 9999;
+  /* left: 0; */
+  right: 0;
+  text-align: center;
+  top: 170px;
+  display: inline-block;
+  width: 240px;
+  left: 47%;
+  margin-right: -493px;
+
+  input[type='text'] {
+    @extend %search-box;
+  }
+
+  .inline-search-button {
+    @extend %search-button;
+  }
+
+  select {
+    background: #FFFFFF;
+    /* border: 0; */
+    -moz-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+    /* -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5); */
+    /* box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5); */
+    font-size: 18px;
+    font-family: 'Avenir Next W01', "Avenir Next", "Avenir", Arial, sans-serif;
+    /* padding: 9px; */
+    outline: none;
+    /* top: 0; */
+    /* position: absolute; */
+    border: 1px solid #ccc;
+    font-size: 12px;
+  }
+
+  fieldset {
+    border: 0;
+    position: relative;
+    margin: 0;
+    padding: 4px;
+    text-align: center;
+    padding: 0 7px;
+    position: absolute;
+    top: -19px;
+    width: 229px;
+    background-color: #fff;
+    font-size: 13px;
+
+    label {
+      display: inline;
+    }
+
+
+  }
+}
+
+.people-search-form {
+  position: absolute;
+  z-index: 9999;
+  /* left: 0; */
+  right: 0;
+  text-align: center;
+  top: 170px;
+  display: inline-block;
+  width: 240px;
+  right: 50%;
+  margin-right: -493px;
+
+  input[type='text'] {
+    @extend %search-box;
+  }
+
+  .inline-search-button {
+    @extend %search-button;
+  }
+}
