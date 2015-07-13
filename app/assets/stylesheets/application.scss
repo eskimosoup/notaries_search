@@ -133,3 +133,45 @@
     @extend %search-button;
   }
 }
+
+.town-filter-form {
+  position: absolute;
+  z-index: 9999;
+  /* left: 0; */
+  right: 0;
+  text-align: center;
+  top: 370px;
+  display: inline-block;
+  width: 240px;
+  left: 47%;
+  margin-right: -493px;
+
+  input[type='text'] {
+    @extend %search-box;
+  }
+
+  .inline-search-button {
+    @extend %search-button;
+  }
+}
+
+.county-filter-form {
+  position: absolute;
+  z-index: 9999;
+  /* left: 0; */
+  right: 0;
+  text-align: center;
+  top: 370px;
+  display: inline-block;
+  width: 240px;
+  right: 50%;
+  margin-right: -493px;
+
+  input[type='text'] {
+    @extend %search-box;
+  }
+
+  .inline-search-button {
+    @extend %search-button;
+  }
+}
