@@ -1,16 +1,16 @@
 <%= form_tag '', method: :get, class: 'people-search-form' do %>
-	<%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
-	<%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
+  <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
+  <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
 <% end %>
 
 <%= form_tag '', method: :get, class: 'location-search-form' do %>
-	<%= text_field_tag :search_term, params[:search_term], placeholder: 'Enter an address' %>
-	<%= field_set_tag do %>
-		<%= label_tag :radius, "Within" %>
-	  <%= select_tag :radius, options_for_select(["1 miles", "2 miles", "5 miles", "10 miles", "20 miles"], "#{@radius} miles") %>
-		of
-	<% end %>
-	<%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
+  <%= text_field_tag :search_term, params[:search_term], placeholder: 'Enter an address' %>
+  <%= field_set_tag do %>
+    <%= label_tag :radius, "Within" %>
+    <%= select_tag :radius, options_for_select(["1 miles", "2 miles", "5 miles", "10 miles", "20 miles"], "#{@radius} miles") %>
+    of
+  <% end %>
+  <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
 <% end %>
 
 <div id="map" style="width:100%; height:400px;"></div>
@@ -18,236 +18,236 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXisOrjsA8EKH7jz9UEXV2TtUu5GeKAdo&sensor=false"></script>
 <script src="http://thenotariessociety.org.uk/js/cluster.js"></script>
 <script type="text/javascript">
-	var results = [];
-	var results_people = [];
-	var results_places = [];
-	var latlngs = [];
-	var infoWindows = [];
-	var markers = [];
+  var results = [];
+  var results_people = [];
+  var results_places = [];
+  var latlngs = [];
+  var infoWindows = [];
+  var markers = [];
 
   <% if @member_locations.present? %>
     <% @member_locations.each do |member_location| %>
       results_places.push({
         "name":"<%= member_location.member.firstname %> <%= member_location.member.lastname %>",
-	      "email":"<% if member_location.email.present? %><%= member_location.email %><% else %><%= member_location.member.email%><% end %>",
-	      "address":"<%= j member_location.address %>",
-	      "website":"<%= member_location.website %>",
-	      "phone":"<%= member_location.contact_phone %>",
-	      "mobile":"<%= member_location.contact_mobile %>",
-	      "fax":"<%= member_location.fax %>",
-	      "is_member":"<%= member_location.member.membership_detail.is_member %>",
-	      "in_practice":"<%= member_location.member.membership_detail.in_practice %>",
-	      "id":<%= member_location.member.contact_id %>,
-	      "lat":<%= member_location.latitude %>,
-	      "lng":<%= member_location.longitude %>,
-	      "location":<%= member_location.id %>
+        "email":"<% if member_location.email.present? %><%= member_location.email %><% else %><%= member_location.member.email%><% end %>",
+        "address":"<%= j member_location.address %>",
+        "website":"<%= member_location.website %>",
+        "phone":"<%= member_location.contact_phone %>",
+        "mobile":"<%= member_location.contact_mobile %>",
+        "fax":"<%= member_location.fax %>",
+        "is_member":"<%= member_location.member.membership_detail.is_member %>",
+        "in_practice":"<%= member_location.member.membership_detail.in_practice %>",
+        "id":<%= member_location.member.id %>,
+        "lat":<%= member_location.latitude %>,
+        "lng":<%= member_location.longitude %>,
+        "location":<%= member_location.id %>
       });
     <% end %>
   <% end %>
 
   <% if @members.present? %>
-  	<% @members.each do |member| %>
-	    <% if member.member_locations.first.latitude.present? %>
-	      results_people.push({
-	        "name":"<%= member.firstname %> <%= member.lastname %>",
-		      "email":"<% if  member.member_locations.first.email.present? %><%=  member.member_locations.first.email %><% else %><%= member.email %><% end %>",
-		      "address":"<%= j  member.member_locations.first.address %>",
-		      "website":"<%=  member.member_locations.first.website %>",
-		      "phone":"<%=  member.member_locations.first.contact_phone %>",
-		      "mobile":"<%=  member.member_locations.first.contact_mobile %>",
-		      "fax":"<%=  member.member_locations.first.fax %>",
-		      "is_member":"<%= member.membership_detail.is_member %>",
-		      "in_practice":"<%= member.membership_detail.in_practice %>",
-		      "id":<%= member.contact_id %>,
-	      	"lat":<%= member.member_locations.first.latitude %>,
-		      "lng":<%= member.member_locations.first.longitude %>,
-		      "location":<%=  member.member_locations.first.id %>
-	      });
-	    <% end %>
-		<% end %>
-	<% end %>
+    <% @members.each do |member| %>
+      <% if member.member_locations.first.latitude.present? %>
+        results_people.push({
+          "name":"<%= member.firstname %> <%= member.lastname %>",
+          "email":"<% if  member.member_locations.first.email.present? %><%=  member.member_locations.first.email %><% else %><%= member.email %><% end %>",
+          "address":"<%= j  member.member_locations.first.address %>",
+          "website":"<%=  member.member_locations.first.website %>",
+          "phone":"<%=  member.member_locations.first.contact_phone %>",
+          "mobile":"<%=  member.member_locations.first.contact_mobile %>",
+          "fax":"<%=  member.member_locations.first.fax %>",
+          "is_member":"<%= member.membership_detail.is_member %>",
+          "in_practice":"<%= member.membership_detail.in_practice %>",
+          "id":<%= member.contact_id %>,
+          "lat":<%= member.member_locations.first.latitude %>,
+          "lng":<%= member.member_locations.first.longitude %>,
+          "location":<%=  member.member_locations.first.id %>
+        });
+      <% end %>
+    <% end %>
+  <% end %>
 
-	function initialize() {
-		latlngs = [];
-		infoWindows = [];
-		markers = [];
+  function initialize() {
+    latlngs = [];
+    infoWindows = [];
+    markers = [];
 
     <% if @member_locations.present? %>
-		if(results.length == 0) {
-			results = results_places;
-			$('#notatries_places').show();
-		}
+    if(results.length == 0) {
+      results = results_places;
+      $('#notatries_places').show();
+    }
     <% else %>
       if(results.length == 0) {
-				results = results_people;
-				$('#notatries_people').show();
-			}
+        results = results_people;
+        $('#notatries_people').show();
+      }
     <% end %>
+    console.log(results_places[0]);
+    var mapOptions = {
+      center: new google.maps.LatLng(53.4924471, -0.9721805),
+      zoom: 8,
+      disableDefaultUI: true,
+      scrollwheel: false
+    };
 
-		var mapOptions = {
-		  center: new google.maps.LatLng(53.4924471, -0.9721805),
-		  zoom: 8,
-		  disableDefaultUI: true,
-		  scrollwheel: false
-		};
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-		var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    for(var i = 0; i < results.length; i++){
+      if(results[i].lat){
+         var temp_latlng = new google.maps.LatLng(results[i].lat, results[i].lng);
+         var marker = new google.maps.Marker({
+           position: temp_latlng,
+           title: results[i].name,
+           html: results[i].html,
+           id: results[i].id,
+           location: results[i].location,
+           //animation:google.maps.Animation.DROP,
+           icon:(results[i].in_practice != 'Y') ? "http://thenotariessociety.org.uk/includes/mapmarker.php?blue&no="+(i+1) : "http://thenotariessociety.org.uk/includes/mapmarker.php?no="+(i+1),
+           map: map
+         });
 
-		for(var i = 0; i < results.length; i++){
-			if(results[i].lat){
-			 	var temp_latlng = new google.maps.LatLng(results[i].lat, results[i].lng);
-			 	var marker = new google.maps.Marker({
-			 		position: temp_latlng,
-			 		title: results[i].name,
-			 		html: results[i].html,
-			 		id: results[i].id,
-			 		location: results[i].location,
-			 		//animation:google.maps.Animation.DROP,
-			 		icon:(results[i].in_practice != 'Y') ? "http://thenotariessociety.org.uk/includes/mapmarker.php?blue&no="+(i+1) : "http://thenotariessociety.org.uk/includes/mapmarker.php?no="+(i+1),
-			 		map: map
-			 	});
+         var infoWindow = new google.maps.InfoWindow({
+           content: marker.html
+         });
 
-			 	var infoWindow = new google.maps.InfoWindow({
-			 		content: marker.html
-			 	});
+         latlngs.push(temp_latlng);
+         infoWindows.push(infoWindow);
+         markers.push(marker);
 
-			 	latlngs.push(temp_latlng);
-			 	infoWindows.push(infoWindow);
-			 	markers.push(marker);
+         google.maps.event.addListener(marker, 'click', function(){
+           var indx = markers.indexOf(this);
+           window.location.href = '/find-a-notary?notary='+markers[indx].id+'&location='+markers[indx].location;
+         });
+      }
+    }
 
-			 	google.maps.event.addListener(marker, 'click', function(){
-		 			var indx = markers.indexOf(this);
-		 			window.location.href = '/find-a-notary?notary='+markers[indx].id+'&location='+markers[indx].location+'&search=hull';
-		 		});
-			}
-		}
+    var mc = new MarkerClusterer(map, markers);
 
-		var mc = new MarkerClusterer(map, markers);
+    var bounds;
 
-		var bounds;
-
-		if (markers.length !== 0) {
-			bounds = new google.maps.LatLngBounds();
-		}
+    if (markers.length !== 0) {
+      bounds = new google.maps.LatLngBounds();
+    }
 
 
 
-		for(marker in markers) {
-			bounds.extend(markers[marker].position);
-		}
+    for(marker in markers) {
+      bounds.extend(markers[marker].position);
+    }
 
-		map.fitBounds(bounds);
+    map.fitBounds(bounds);
 
-		if(markers.length <= 2) {
-			var listener = google.maps.event.addListener(map, "idle", function() {
-			  map.setZoom(map.getZoom() - 2)
-			  google.maps.event.removeListener(listener);
-			});
-		}
-	}
+    if(markers.length <= 2) {
+      var listener = google.maps.event.addListener(map, "idle", function() {
+        map.setZoom(map.getZoom() - 2)
+        google.maps.event.removeListener(listener);
+      });
+    }
+  }
 
-	$(function(){
-		initialize();
+  $(function(){
+    initialize();
 
-		$('#map_people').click(function(){
-			results = results_people;
-			$('#map').html('');
-			$('#map_people').addClass('current');
-			$('#map_places').removeClass('current');
-			$('#notatries_people').show();
-			$('#notatries_places').hide();
-			initialize();
-		});
+    $('#map_people').click(function(){
+      results = results_people;
+      $('#map').html('');
+      $('#map_people').addClass('current');
+      $('#map_places').removeClass('current');
+      $('#notatries_people').show();
+      $('#notatries_places').hide();
+      initialize();
+    });
 
-		$('#map_places').click(function(){
-			results = results_places;
-			$('#map_people').removeClass('current');
-			$('#map_places').addClass('current');
-			$('#map').html('');
-			$('#notatries_people').hide();
-			$('#notatries_places').show();
-			initialize();
-		});
-	});
+    $('#map_places').click(function(){
+      results = results_places;
+      $('#map_people').removeClass('current');
+      $('#map_places').addClass('current');
+      $('#map').html('');
+      $('#notatries_people').hide();
+      $('#notatries_places').show();
+      initialize();
+    });
+  });
 </script>
 
 <div class="content columns">
   <% if @member_locations.present? %>
     <h2 style="display: inline-block">We found <%= @member_locations.size %>  notaries within <%= @radius %> miles of "<%= params[:search_term] %>"</h2>
 
-		<% if @member_locations_count.size > 10 %>
-    	<h3>There are <strong><%= @member_locations_count.size %> within <%= @radius %> miles of "<%= params[:search_term] %>"</strong>, please try to be more specific.</h3>
-		<% end %>
+    <% if @member_locations_count.size > 10 %>
+      <h3>There are <strong><%= @member_locations_count.size %> within <%= @radius %> miles of "<%= params[:search_term] %>"</strong>, please try to be more specific.</h3>
+    <% end %>
 
-		<% unless params[:radius].to_i == @radius %>
-			<p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
-		<% end %>
+    <% unless params[:radius].to_i == @radius %>
+      <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
+    <% end %>
 
   <% end %>
   <% if @members.present? %>
     <h2 style="display: inline-block">We found <%= @members.size %>  notaries matching "<%= params[:name] %>"</h2>
   <% end %>
 
-	<ul id="map_switcher" style="text-align: left; margin-top: -3px; color: #666;">
-		<p style="display: inline; line-height: 0px; text-align: left !important;">
-			<img src="http://thenotariessociety.org.uk/images/map_pin_group.png" style="height: 40px; vertical-align: text-bottom; margin-top: 3px; float: left; margin-right: 10px;">
-			Indicates notaries in close proximity to one another
-		</p>
-	</ul>
+  <ul id="map_switcher" style="text-align: left; margin-top: -3px; color: #666;">
+    <p style="display: inline; line-height: 0px; text-align: left !important;">
+      <img src="http://thenotariessociety.org.uk/images/map_pin_group.png" style="height: 40px; vertical-align: text-bottom; margin-top: 3px; float: left; margin-right: 10px;">
+      Indicates notaries in close proximity to one another
+    </p>
+  </ul>
 
-	<p>Below you can find a list of all members of the Notaries Society operating in this area. Each result supplies you with both the Notaries Name and contact details, as well as their address. You will need to make an appointment to see the notary.  They will charge a fee, but you can ask for an estimate when making your appointment.  You will have to produce identitfication.</p>
+  <p>Below you can find a list of all members of the Notaries Society operating in this area. Each result supplies you with both the Notaries Name and contact details, as well as their address. You will need to make an appointment to see the notary.  They will charge a fee, but you can ask for an estimate when making your appointment.  You will have to produce identitfication.</p>
 
-	<ul id="notatries_people">
+  <ul id="notatries_people">
     <% if @members.present? %>
-    	<% i = 1 %>
-    	<% @members.in_groups_of(2, false) do |group| %>
-				<script>
-					$(function() {
-						rightHeight = $('#notary-people-<%= i %>').height();
-						leftHeight = $('li#notary-people-<%= i %>').next().height();
+      <% i = 1 %>
+      <% @members.in_groups_of(2, false) do |group| %>
+        <script>
+          $(function() {
+            rightHeight = $('#notary-people-<%= i %>').height();
+            leftHeight = $('li#notary-people-<%= i %>').next().height();
 
-						if(rightHeight > leftHeight)
-						{
-							$('#notary-people-<%= i %>').next().css('height', rightHeight);
-						} else {
-							$('#notary-people-<%= i %>').css('height', leftHeight);
-						}
-					});
-				</script>
+            if(rightHeight > leftHeight)
+            {
+              $('#notary-people-<%= i %>').next().css('height', rightHeight);
+            } else {
+              $('#notary-people-<%= i %>').css('height', leftHeight);
+            }
+          });
+        </script>
 
-				<% group.each do |member| %>
-        	<%= render partial: 'members/member', locals: { member: member, i: i } %>
-      		<% i = i + 1 %>
+        <% group.each do |member| %>
+          <%= render partial: 'members/member', locals: { member: member, i: i } %>
+          <% i = i + 1 %>
         <% end %>
-  		<% end %>
-		<% end %>
-	</ul>
+      <% end %>
+    <% end %>
+  </ul>
 
   <% if @member_locations.present? %>
-		<ul id="notatries_places">
-    	<% i = 1 %>
-			<% @member_locations.in_groups_of(2, false) do |group| %>
-				<script>
-					$(function() {
-						rightHeight = $('#notary-places-<%= i %>').height();
-						leftHeight = $('li#notary-places-<%= i %>').next().height();
+    <ul id="notatries_places">
+      <% i = 1 %>
+      <% @member_locations.in_groups_of(2, false) do |group| %>
+        <script>
+          $(function() {
+            rightHeight = $('#notary-places-<%= i %>').height();
+            leftHeight = $('li#notary-places-<%= i %>').next().height();
 
-						if(rightHeight > leftHeight)
-						{
-							$('#notary-places-<%= i %>').next().css('height', rightHeight);
-						} else {
-							$('#notary-places-<%= i %>').css('height', leftHeight);
-						}
-					});
-			</script>
+            if(rightHeight > leftHeight)
+            {
+              $('#notary-places-<%= i %>').next().css('height', rightHeight);
+            } else {
+              $('#notary-places-<%= i %>').css('height', leftHeight);
+            }
+          });
+      </script>
 
-			<% group.each do |member_location| %>
-				<%= render partial: 'member_locations/member_location', locals: { member_location: member_location, i: i } %>
-				<% i = i + 1 %>
-			<% end %>
-		<% end %>
-		</ul>
-	<% end %>
+      <% group.each do |member_location| %>
+        <%= render partial: 'member_locations/member_location', locals: { member_location: member_location, i: i } %>
+        <% i = i + 1 %>
+      <% end %>
+    <% end %>
+    </ul>
+  <% end %>
 
-	<div class="push"></div>
+  <div class="push"></div>
 </div>

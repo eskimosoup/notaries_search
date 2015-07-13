@@ -4,8 +4,9 @@ class Member < ActiveRecord::Base
 
   def self.name_search(name, show_all)
     if name.match(/\s/)
-      first = name.split(' ').first
-      last = name.split(' ').last
+      split_name = name.split(' ')
+      first = split_name.first
+      last = split_name.last
       search_type = 'AND'
     else
       first = last = name
