@@ -14,8 +14,18 @@ class ApplicationController < ActionController::Base
       @member_locations = member_locations.first.limit(10)
       @radius = member_locations.last
       @member_locations_count = member_locations.first
+    elsif params[:town]
+      @member_locations = MemberLocation.where(town: params[:town])
+      @member_locations_count = @member_locations.count
+      @place = params[:town]
+    elsif params[:county]
+      @member_locations = MemberLocation.where(county: params[:county])
+      @member_locations_count = @member_locations.count
+      @place = params[:county]
+    elsif params[:name]
+      @members = Member.name_search(params[:name], cookies[:allowed])
     end
-    @members = Member.name_search(params[:name], cookies[:allowed]) if params[:name].present?
+
   end
 
   private
