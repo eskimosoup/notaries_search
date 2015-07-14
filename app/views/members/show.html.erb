@@ -3,76 +3,76 @@
 
 <script type="text/javascript">
 function initialize() {
-	var markers = [];
+  var markers = [];
 
-	var mapOptions = {
-	  center: new google.maps.LatLng(-34.397, 150.644),
-	  zoom: 1,
-	  disableDefaultUI: true,
-	  scrollwheel: false
-	};
+  var mapOptions = {
+    center: new google.maps.LatLng(-34.397, 150.644),
+    zoom: 1,
+    disableDefaultUI: true,
+    scrollwheel: false
+  };
 
-	var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-	var locations = <%= raw @member.member_locations.to_json %>;
+  var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  var locations = <%= raw @member.member_locations.to_json %>;
 
-	for(var location in locations) {
-		var temp_latlng = new google.maps.LatLng(locations[location]['latitude'], locations[location]['longitude']);
+  for(var location in locations) {
+    var temp_latlng = new google.maps.LatLng(locations[location]['latitude'], locations[location]['longitude']);
     console.log(temp_latlng)
-		var marker = new google.maps.Marker({
-		 	position: temp_latlng,
-		 	<% if @member.membership_detail.in_practice == 'N' %>
-		 		icon: "http://www.thenotariessociety.org.uk/includes/mapmarker.php?blue&no="+  ((locations.length > 1)?(parseInt(location)+1) : ''),
-		 	<% else %>
-		 		icon: "http://www.thenotariessociety.org.uk/includes/mapmarker.php?no="+  ((locations.length > 1)?(parseInt(location)+1) : ''),
-		 	<% end %>
-		 	map: map
-		});
+    var marker = new google.maps.Marker({
+       position: temp_latlng,
+       <% if @member.membership_detail.in_practice == 'N' %>
+         icon: "http://www.thenotariessociety.org.uk/includes/mapmarker.php?blue&no="+  ((locations.length > 1)?(parseInt(location)+1) : ''),
+       <% else %>
+         icon: "http://www.thenotariessociety.org.uk/includes/mapmarker.php?no="+  ((locations.length > 1)?(parseInt(location)+1) : ''),
+       <% end %>
+       map: map
+    });
 
-		markers.push(marker);
-	}
+    markers.push(marker);
+  }
 
-	var bounds = new google.maps.LatLngBounds();
+  var bounds = new google.maps.LatLngBounds();
 
   for(marker in markers) {
-		bounds.extend(markers[marker].position);
-	}
+    bounds.extend(markers[marker].position);
+  }
 
-	bounds.zoom = bounds.zoom - 2;
+  bounds.zoom = bounds.zoom - 2;
 
-	map.fitBounds(bounds);
+  map.fitBounds(bounds);
 
-	var listener = google.maps.event.addListener(map, "idle", function() {
-	  map.setZoom(map.getZoom() - 1)
-	  google.maps.event.removeListener(listener);
-	});
+  var listener = google.maps.event.addListener(map, "idle", function() {
+    map.setZoom(map.getZoom() - 1)
+    google.maps.event.removeListener(listener);
+  });
 }
 
 $(function(){
-	initialize();
+  initialize();
 });
 </script>
 
 
 <div class="content">
 
-		<div style="position:absolute; left: 0; top: -50px; z-index: 9999999;">
-			<% if params[:search].present? %>
-      	<%= link_to '&larr; Back to search results'.html_safe, root_path(search_term: params[:search], radius: params[:radius]), class: 'btn' %>
-			<% elsif params[:name].present? %>
-				<%= link_to '&larr; Back to search results'.html_safe, root_path(name: params[:name]), class: 'btn' %>
-			<% end %>
+    <div style="position:absolute; left: 0; top: -50px; z-index: 9999999;">
+      <% if params[:search].present? %>
+        <%= link_to '&larr; Back to search results'.html_safe, root_path(search_term: params[:search], radius: params[:radius]), class: 'btn' %>
+      <% elsif params[:name].present? %>
+        <%= link_to '&larr; Back to search results'.html_safe, root_path(name: params[:name]), class: 'btn' %>
+      <% end %>
     </div>
-		<br>
+    <br>
 
-	<h2><%= @member.title %> <%= @member.firstname %> <%= @member.lastname %></h2>
+  <h2><%= @member.title %> <%= @member.firstname %> <%= @member.lastname %></h2>
 
   <% if @member.membership_detail.in_practice == 'N' %>
- 		<p>
-			<em>No longer in practice</em>
-		</p>
+     <p>
+      <em>No longer in practice</em>
+    </p>
   <% end %>
 
-	<section id="col-one">
+  <section id="col-one">
     <p>
       <%= mail_to @member.email, @member.email, class: 'email' if @member.email.present? %>
 
@@ -115,32 +115,32 @@ $(function(){
         <%= link_to item, "", class: 'dx' %>
       <% end %>
     </p>
-	</section>
+  </section>
 
-	<section id="col-two">
+  <section id="col-two">
     <% # do this for more control over the paragraph %>
     <% @member.member_locations.group_by(&:address).each do |(address, location)| %>
-			<div style="overflow:hidden;">
-	      <p class="address">
-	        <%= address.gsub(/\n/, '<br />').html_safe %>
-	        <br />
-	        <%= location[0].postcode if location[0].present? %>
-	      </p>
+      <div style="overflow:hidden;">
+        <p class="address">
+          <%= address.gsub(/\n/, '<br />').html_safe %>
+          <br />
+          <%= location[0].postcode if location[0].present? %>
+        </p>
 
-				<%= form_tag 'https://maps.google.com', target: '_blank', method: :get, class: 'locations-form' do %>
-					<%= label_tag :daddr, "Get directions" %>
-					<%= text_field_tag :saddr, nil, placeholder: 'Enter your location' %><br />
-					<%= hidden_field_tag :daddr, "#{address}+#{location[0].postcode if location[0].present?}" %>
-					<%= submit_tag "Show directions" %>
-				<% end %>
-			</div>
+        <%= form_tag 'https://maps.google.com', target: '_blank', method: :get, class: 'locations-form' do %>
+          <%= label_tag :daddr, "Get directions" %>
+          <%= text_field_tag :saddr, nil, placeholder: 'Enter your location' %><br />
+          <%= hidden_field_tag :daddr, "#{address}+#{location[0].postcode if location[0].present?}" %>
+          <%= submit_tag "Show directions" %>
+        <% end %>
+      </div>
     <% end %>
-	</section>
+  </section>
 
-	<div style="clear:both"></div>
+  <div style="clear:both"></div>
 
-	<br>
+  <br>
 
-	<p><%= @member.notes %></p>
+  <p><%= @member.notes %></p>
 
 </div>
