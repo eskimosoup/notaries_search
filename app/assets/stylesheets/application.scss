@@ -134,54 +134,51 @@
   }
 }
 
-.town-filter-form {
-  position: absolute;
-  z-index: 9999;
-  /* left: 0; */
-  right: 0;
-  text-align: center;
-  top: 370px;
-  display: inline-block;
-  width: 240px;
-  left: 47%;
-  margin-right: -493px;
-
-  input[type='text'] {
-    @extend %search-box;
-  }
-
-  .inline-search-button {
-    @extend %search-button;
-  }
+.clear{
+  clear: both;
 }
 
-.county-filter-form {
-  position: absolute;
-  z-index: 9999;
-  /* left: 0; */
-  right: 0;
-  text-align: center;
-  top: 370px;
-  display: inline-block;
-  width: 240px;
-  right: 50%;
-  margin-right: -493px;
-
-  input[type='text'] {
-    @extend %search-box;
-  }
-
-  .inline-search-button {
-    @extend %search-button;
-  }
-}
-
-.row {
-  overflow: hidden;
-  margin-bottom: 20px;
-}
 .six.columns {
   width: 50%;
   float: left;
+}
+
+.search-form {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #294172;
+  border-radius: 5px;
+
+  *:focus {
+    outline: none;
+  }
+
+  .field {
+    margin: 10px auto;
+  }
+
+  input[type="text"] {
+    outline: none;
+  }
+
+  select {
+    background-color: white;
+  }
+
+  input[type="text"], select {
+    border: 1px solid rgba(150, 150, 150, 0.41);
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+  }
+
+  input[type="submit"] {
+    float:right;
+  }
+
 }
 
