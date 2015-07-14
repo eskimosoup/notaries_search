@@ -40,17 +40,17 @@
 
   <body>
     <div class="wrapper">
-  		<!-- Site Header -->
-  		<header class="content">
-				<section id="logo" class="logo-intenral">
-					<h1>The Notaries Society</h1>
-				</section>
+      <!-- Site Header -->
+      <header class="content">
+        <section id="logo" class="logo-intenral">
+          <h1>The Notaries Society</h1>
+        </section>
 
-  			<div id="navigation-container">
+        <div id="navigation-container">
 
-  				<!-- Search Website -->
-  				<section id="site-search">
-  					<form action="http://thenotariessociety.org.uk/search" method="get">
+          <!-- Search Website -->
+          <section id="site-search">
+            <form action="http://thenotariessociety.org.uk/search" method="get">
               <% if cookies[:allowed].blank? %>
                 <a href="http://thenotariessociety.org.uk/login?return=/members/home">Society Members Login</a>
               <% else %>
@@ -60,26 +60,26 @@
                 <a href="http://thenotariessociety.org.uk/admin">Admin</a> &bull;
                 <a href="http://thenotariessociety.org.uk/logout">Logout</a>
               <% end %>
-  						<input name="term" type="text" placeholder="Search our website"><input type="submit" class="inline-search-button" value="search">
-  					</form>
-  				</section>
+              <input name="term" type="text" placeholder="Search our website"><input type="submit" class="inline-search-button" value="search">
+            </form>
+          </section>
 
-    				<!-- Main Navigation -->
-    				<nav>
-    					<ul>
-    						<li class=""><a href="/">Home</a></li>
-    						<li class=""><a href="/what-is-a-notary">What Is a Notary</a></li>
-    						<li class="active"><a href="/find-a-notary">Find a Notary</a></li>
-    						<li class=""><a href="/the-notarial-profession">The Notarial Profession</a></li>
-    						<li class=""><a href="/complaints">Complaints</a></li>
-    						<li class=""><a href="/contact-us">Contact Us</a></li>
-								<li class="mobile"><a href="/login?return=/members/home">Society Members Login</a></li>
-    					</ul>
-    				</nav>
-    			</div>
-    		</header>
+            <!-- Main Navigation -->
+            <nav>
+              <ul>
+                <li class=""><a href="http://www.thenotariessociety.org.uk/">Home</a></li>
+                <li class=""><a href="http://www.thenotariessociety.org.uk/what-is-a-notary">What Is a Notary</a></li>
+                <li class="active"><a href="/find-a-notary">Find a Notary</a></li>
+                <li class=""><a href="http://www.thenotariessociety.org.uk/the-notarial-profession">The Notarial Profession</a></li>
+                <li class=""><a href="http://www.thenotariessociety.org.uk/complaints">Complaints</a></li>
+                <li class=""><a href="http://www.thenotariessociety.org.uk/contact-us">Contact Us</a></li>
+                <li class="mobile"><a href="http://www.thenotariessociety.org.uk/login?return=/members/home">Society Members Login</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
 
-				<section id="breadcrumb">
+        <section id="breadcrumb">
           <div class="content">
             <nav class="beadcrumb-nav">
               <ul>
@@ -97,23 +97,23 @@
         <%= yield %>
 
         <!-- Footer -->
-      	<footer>
-      		<div class="content">
-      			<span id="copyright">Copyright 2015 The Notaries Society | Web Design and Development by <a href="http://v4technical.com">V4 Technical Ltd</a></span>
-      		</div>
-      	</footer>
+        <footer>
+          <div class="content">
+            <span id="copyright">Copyright 2015 The Notaries Society | Web Design and Development by <a href="http://v4technical.com">V4 Technical Ltd</a></span>
+          </div>
+        </footer>
 
         <script type="text/javascript"></script>
 
-      	<script type="text/javascript">
-        	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        	</script>
-        	<script type="text/javascript">
-        	try {
-        	var pageTracker = _gat._getTracker("UA-15181484-1");
-        	pageTracker._trackPageview();
-        	} catch(err) {}
+        <script type="text/javascript">
+          var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+          document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+          try {
+          var pageTracker = _gat._getTracker("UA-15181484-1");
+          pageTracker._trackPageview();
+          } catch(err) {}
         </script>
       </div>
   </body>
