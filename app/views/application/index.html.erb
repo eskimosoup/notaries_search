@@ -1,3 +1,4 @@
+<!--
 <%= form_tag '', method: :get, class: 'people-search-form' do %>
   <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
   <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
@@ -12,16 +13,7 @@
   <% end %>
   <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
 <% end %>
-
-<%= form_tag '', method: :get, class: 'town-filter-form' do %>
-  <%= select_tag :town, options_for_select(MemberLocation.order(:town).pluck(:town).uniq) %>
-  <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
-<% end %>
-
-<%= form_tag '', method: :get, class: 'county-filter-form' do %>
-  <%= select_tag :county, options_for_select(MemberLocation.order(:county).pluck(:county).uniq) %>
-  <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
-<% end %>
+-->
 
 <div id="map" style="width:100%; height:400px;"></div>
 
@@ -55,42 +47,15 @@
     <% end %>
   <% end %>
 
-  <% if @members.present? %>
-    <% @members.each do |member| %>
-      <% if member.member_locations.first.latitude.present? %>
-        results_people.push({
-          "name":"<%= member.firstname %> <%= member.lastname %>",
-          "email":"<% if  member.member_locations.first.email.present? %><%=  member.member_locations.first.email %><% else %><%= member.email %><% end %>",
-          "address":"<%= j  member.member_locations.first.address %>",
-          "website":"<%=  member.member_locations.first.website %>",
-          "phone":"<%=  member.member_locations.first.contact_phone %>",
-          "mobile":"<%=  member.member_locations.first.contact_mobile %>",
-          "fax":"<%=  member.member_locations.first.fax %>",
-          "is_member":"<%= member.membership_detail.is_member %>",
-          "in_practice":"<%= member.membership_detail.in_practice %>",
-          "id":<%= member.contact_id %>,
-          "lat":<%= member.member_locations.first.latitude %>,
-          "lng":<%= member.member_locations.first.longitude %>,
-          "location":<%=  member.member_locations.first.id %>
-        });
-      <% end %>
-    <% end %>
-  <% end %>
-
   function initialize() {
     latlngs = [];
     infoWindows = [];
     markers = [];
 
     <% if @member_locations.present? %>
-    if(results.length == 0) {
-      results = results_places;
-      $('#notatries_places').show();
-    }
-    <% else %>
       if(results.length == 0) {
-        results = results_people;
-        $('#notatries_people').show();
+        results = results_places;
+        $('#notatries_places').show();
       }
     <% end %>
     console.log(results_places[0]);
@@ -182,23 +147,70 @@
 </script>
 
 <div class="content columns">
-  <% if @member_locations.present? %>
-    <% if @radius %>
-      <h2 style="display: inline-block">We found <%= @member_locations.size %> notaries within <%= @radius %> miles of "<%= params[:search_term] %>"</h2>
-      <% if @member_locations_count.size > 10 %>
-        <h3>There are <strong><%= @member_locations_count.size %> within <%= @radius %> miles of "<%= params[:search_term] %>"</strong>, please try to be more specific.</h3>
-      <% end %>
+  <div class="row">
+    <div class="six columns">
+      <%= form_tag '', method: :get, class: 'search-form' do %>
+        <div class="field">
+          <%= label_tag :name %><br/>
+          <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
+        </div>
 
-      <% unless params[:radius].to_i == @radius %>
-        <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
+        <div class="field">
+          <%= label_tag :town %><br/>
+          <%= select_tag :town, options_for_select(MemberLocation.order(:town).pluck(:town).uniq, selected: params[:town]), include_blank: true %>
+        </div>
+
+        <div class="field">
+          <%= label_tag :county %><br/>
+          <%= select_tag :county, options_for_select(MemberLocation.order(:county).pluck(:county).uniq, selected: params[:county]), include_blank: true %>
+        </div>
+
+        <div class="actions">
+          <%= submit_tag 'Search', class: 'search-button', style: 'line-height: 34px; margin-top:11px;' %>
+        </div>
       <% end %>
-    <% elsif @place %>
-      <h2 style="display: inline-block">We found <%= @member_locations.size %> notaries in <%= @place %></h2>
+    </div>
+    <div class="six columns">
+      <%= form_tag '', method: :get, class: 'search-form' do %>
+        <div class="field">
+          <%= label_tag :name %><br/>
+          <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
+        </div>
+
+        <div class="field">
+          <%= label_tag :radius, "Within" %>
+          <%= select_tag :radius, options_for_select([["2 miles", 2], ["5 miles", 5], ["10 miles", 10], ["20 miles", 20]], selected: @radius) %>
+          <%= label_tag :postcode, "of" %>
+          <%= text_field_tag :postcode, params[:postcode], placeholder: 'Enter a postcode' %>
+        </div>
+
+        <div class="actions">
+          <%= submit_tag 'Search', class: 'search-button', style: 'line-height: 34px; margin-top:11px;' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div id="information">
+    <% if @member_locations.present? %>
+      <% if @radius %>
+        <h2 style="display: inline-block">We found <%= @member_locations.size %> notaries within <%= @radius %> miles of "<%= params[:postcode] %>"</h2>
+        <% if @member_locations_count.size > 10 %>
+          <h3>There are <strong><%= @member_locations_count.size %> within <%= @radius %> miles of "<%= params[:postcode] %>"</strong>, please try to be more specific.</h3>
+        <% end %>
+
+        <% unless params[:radius].to_i == @radius %>
+          <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
+        <% end %>
+      <% elsif @place %>
+        <h2 style="display: inline-block">We found <%= @member_locations.size %> notaries in <%= @place %></h2>
+      <% end %>
     <% end %>
-  <% end %>
-  <% if @members.present? %>
-    <h2 style="display: inline-block">We found <%= @members.size %>  notaries matching "<%= params[:name] %>"</h2>
-  <% end %>
+    <% if @members.present? %>
+      <h2 style="display: inline-block">We found <%= @members.size %>  notaries matching "<%= params[:name] %>"</h2>
+    <% end %>
+  </div>
 
   <ul id="map_switcher" style="text-align: left; margin-top: -3px; color: #666;">
     <p style="display: inline; line-height: 0px; text-align: left !important;">
@@ -208,32 +220,6 @@
   </ul>
 
   <p>Below you can find a list of all members of the Notaries Society operating in this area. Each result supplies you with both the Notaries Name and contact details, as well as their address. You will need to make an appointment to see the notary.  They will charge a fee, but you can ask for an estimate when making your appointment.  You will have to produce identitfication.</p>
-
-  <ul id="notatries_people">
-    <% if @members.present? %>
-      <% i = 1 %>
-      <% @members.in_groups_of(2, false) do |group| %>
-        <script>
-          $(function() {
-            rightHeight = $('#notary-people-<%= i %>').height();
-            leftHeight = $('li#notary-people-<%= i %>').next().height();
-
-            if(rightHeight > leftHeight)
-            {
-              $('#notary-people-<%= i %>').next().css('height', rightHeight);
-            } else {
-              $('#notary-people-<%= i %>').css('height', leftHeight);
-            }
-          });
-        </script>
-
-        <% group.each do |member| %>
-          <%= render partial: 'members/member', locals: { member: member, i: i } %>
-          <% i = i + 1 %>
-        <% end %>
-      <% end %>
-    <% end %>
-  </ul>
 
   <% if @member_locations.present? %>
     <ul id="notatries_places">

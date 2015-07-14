@@ -175,3 +175,13 @@
     @extend %search-button;
   }
 }
+
+.row {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.six.columns {
+  width: 50%;
+  float: left;
+}
+
