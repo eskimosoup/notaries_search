@@ -29,24 +29,4 @@ class MemberLocation < ActiveRecord::Base
       end
     end
   end
-
-  def self.location_search(location, radius, show_all)
-    if show_all.present?
-      near(location, radius || 5)
-    else
-      near(location, radius || 5).in_practice
-    end
-  end
-
-  #def self.location_count(location, radius, show_all)
-  #  if show_all.present?
-  #    select('id').near(location, radius || 5)
-  #  else
-  #    select('id').near(location, radius || 5).in_practice
-  #  end
-  #end
-
-  def self.in_practice(limit = nil)
-    joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).limit(limit)
-  end
 end
