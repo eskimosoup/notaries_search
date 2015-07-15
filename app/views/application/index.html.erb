@@ -147,7 +147,6 @@
 </script>
 
 <div class="content columns">
-
   <div class="six columns">
     <%= form_tag '', method: :get, class: 'search-form' do %>
       <h2>Filter By Town and County</h2>
@@ -158,12 +157,7 @@
 
       <div class="field">
         <%= label_tag :town %><br/>
-        <%= select_tag :town, options_for_select(MemberLocation.order(:town).pluck(:town).uniq.reject(&:blank?), selected: params[:town]), include_blank: "Not Set" %>
-      </div>
-
-      <div class="field">
-        <%= label_tag :county %><br/>
-        <%= select_tag :county, options_for_select(MemberLocation.order(:county).pluck(:county).uniq.reject(&:blank?), selected: params[:county]), include_blank: "Not Set" %>
+        <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set" %>
       </div>
 
       <div class="actions">

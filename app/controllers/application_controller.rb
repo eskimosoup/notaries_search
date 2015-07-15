@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   before_action :global_site_settings
 
   def index
-    unless params.slice(:name, :town, :county, :postcode, :radius).blank?
-      @member_locations, @radius, @member_locations_count = MemberLocationSearch.new(params.slice(:name, :town, :county, :postcode, :radius), cookies[:allowed]).call
+    unless params.slice(:name, :town, :postcode, :radius).blank?
+      @member_locations, @radius, @member_locations_count = MemberLocationSearch.new(params.slice(:name, :town, :postcode, :radius), cookies[:allowed]).call
     end
   end
 
