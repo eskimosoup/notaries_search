@@ -34,7 +34,6 @@ class MemberLocation < ActiveRecord::Base
     if show_all
       locations = MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).pluck(:town, :county).uniq
     else
-      raise "here"
       locations = MemberLocation.where("town <> '' AND county <> ''").pluck(:town, :county).uniq
     end
     hash = locations.each_with_object({}) do |town_and_county, hash|
