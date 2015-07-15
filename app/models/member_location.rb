@@ -29,4 +29,23 @@ class MemberLocation < ActiveRecord::Base
       end
     end
   end
+
+  def self.grouped_county_and_town_for_select(show_all)
+    if show_all
+      locations = MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).pluck(:town, :county).uniq
+    else
+      locations = MemberLocation.where("town <> '' AND county <> ''").pluck(:town, :county).uniq
+    end
+    hash = locations.each_with_object({}) do |town_and_county, hash|
+      hash[town_and_county.last] = [] if hash[town_and_county.last].nil?
+      hash[town_and_county.last] << town_and_county.first
+    end
+    # sort the arrays
+    hash.each do |k,v|
+      hash[k] = v.sort
+    end
+    # sort the keys
+    hash.sort
+  end
+
 end

@@ -1,5 +1,7 @@
 class MemberLocationSearch
 
+  MAX_RADIUS = 20
+
   attr_reader :postcode, :town, :county, :name, :show_all, :name_search_type, :first_name, :last_name
   attr_accessor :radius
   # search params: name, town, county, postcode, radius
@@ -40,7 +42,6 @@ class MemberLocationSearch
     results = MemberLocation.where(nil)
     results = results.joins(:member).where("members.firstname LIKE :first #{name_search_type} members.lastname LIKE :last ", first: "#{first_name}%", last: "#{last_name}%") if name
     results = results.where(town: town) if town
-    results = results.where(town: county) if county
     results
   end
 
