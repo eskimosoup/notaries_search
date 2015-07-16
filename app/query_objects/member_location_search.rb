@@ -28,14 +28,24 @@ class MemberLocationSearch
   private
 
   def location_search
-    results = MemberLocation.near(postcode, radius)
-    while results.size < 1
-      radius = @radius + 2
-      results = MemberLocation.near(postcode, radius)
-    end
+    results = find_location_members
+    #results = MemberLocation.near(postcode, radius)
+    #while results.size < 1
+    #  results = MemberLocation.near("#{postcode}+United+Kingdom", radius)
+    #end
     results = results.joins(:member).where("members.firstname LIKE :first #{name_search_type} members.lastname LIKE :last ", first: "#{first_name}%", last: "#{last_name}%") if name
     results = results.joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }) if show_all
     results
+  end
+
+  def find_location_members
+    results = MemberLocation.near("#{postcode}+United+Kingdom", radius)
+    if results.length < 1
+      @radius += 2
+      find_location_members
+    else
+      results
+    end
   end
 
   def standard_search
