@@ -12,4 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require select2
 //= require_tree .
+
+$(document).ready(function() {
+  $("select.town-select").select2();
+});

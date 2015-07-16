@@ -138,23 +138,19 @@
   clear: both;
 }
 
-.six.columns {
-  width: 50%;
+.four.columns {
+  width: 33%;
   float: left;
 }
 
 .search-form {
-  margin: 20px;
-  padding: 20px;
+  margin: 5px;
+  padding: 10px;
   border: 1px solid #294172;
   border-radius: 5px;
 
   *:focus {
     outline: none;
-  }
-
-  .field {
-    margin: 10px auto;
   }
 
   input[type="text"] {
@@ -166,19 +162,41 @@
   }
 
   input[type="text"], select {
-    border: 1px solid rgba(150, 150, 150, 0.41);
-    font-size: 14px;
-    height: 30px;
-    padding: 5px;
-    width: 250px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    height: 28px;
+    padding-left: 8px;
+    width: 100%;
+    color: #444;
+    font-family: 'Avenir Next W01', 'Avenir Next', Avenir, Arial, sans-serif;
+    line-height: 28px;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
   }
 
   input[type="submit"] {
-    float:right;
+    line-height: 28px;
+    margin-top: 18px;
   }
 
+  .field {
+    margin-right: 5px;
+    float: left;
+    width: 70%;
+  }
+
+  .actions {
+    float: right;
+  }
+}
+
+.search-form.town-geocoded {
+  .field {
+    width: 45%;
+  }
+  .field.radius {
+    width: 25%;
+  }
 }
 

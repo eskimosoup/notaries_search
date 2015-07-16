@@ -147,71 +147,59 @@
 </script>
 
 <div class="content columns">
-  <div class="six columns">
-    <%= form_tag '', method: :get, class: 'search-form' do %>
-      <h2>Filter By Town and County</h2>
-      <div class="field">
-        <%= label_tag :name %><br/>
-        <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
-      </div>
-
+  <div class="four columns">
+    <%= form_tag '', method: :get, class: 'search-form town' do %>
+      <h2>Find Notaries In</h2>
       <div class="field">
         <%= label_tag :town %><br/>
-        <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set" %>
+        <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-search", class: "town-select", style: "width: 100%;" %>
       </div>
 
       <div class="actions">
-        <%= submit_tag 'Search', class: 'search-button', style: 'line-height: 34px; margin-top:11px;' %>
+        <%= submit_tag 'Search', class: 'search-button' %>
       </div>
       <div class="clear"></div>
     <% end %>
   </div>
-  <div class="six columns">
-    <%= form_tag '', method: :get, class: 'search-form' do %>
-      <h2>Or Search By Postcode</h2>
+  <div class="four columns">
+    <%= form_tag '', method: :get, class: 'search-form town-geocoded' do %>
+      <h2>Find Notaries Near</h2>
+      <div class="field">
+        <%= label_tag :town %><br/>
+        <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-geocode", class: "town-select", style: "width: 100%;" %>
+      </div>
+
+      <div class="field radius">
+        <%= label_tag :radius, "Within" %><br/>
+        <%= select_tag :radius, options_for_select([["2 miles", 2], ["5 miles", 5], ["10 miles", 10], ["20 miles", 20]], selected: @radius), style: "width: 100%;" %>
+      </div>
+
+      <div class="actions">
+        <%= submit_tag 'Search', class: 'search-button' %>
+      </div>
+      <div class="clear"></div>
+    <% end %>
+  </div>
+  <div class="four columns">
+    <%= form_tag '', method: :get, class: 'search-form name' do %>
+      <h2>Find Notaries By Name</h2>
       <div class="field">
         <%= label_tag :name %><br/>
         <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
       </div>
 
-      <div class="field">
-        <%= label_tag :radius, "Distance from" %><br/>
-        <%= select_tag :radius, options_for_select([["2 miles", 2], ["5 miles", 5], ["10 miles", 10], ["20 miles", 20]], selected: @radius) %>
-      </div>
-
-      <div class="field">
-        <%= label_tag :postcode %><br/>
-        <%= text_field_tag :postcode, params[:postcode], placeholder: 'Enter a postcode' %>
-      </div>
-
       <div class="actions">
-        <%= submit_tag 'Search', class: 'search-button', style: 'line-height: 34px; margin-top:11px;' %>
+        <%= submit_tag 'Search', class: 'search-button' %>
       </div>
       <div class="clear"></div>
     <% end %>
   </div>
 
 
-
-    <% if @member_locations.present? %>
-      <% if @radius %>
-        <h2 style="display: inline-block">We found <%= @member_locations.size %> notaries within <%= @radius %> miles of "<%= params[:postcode] %>"</h2>
-        <% if @member_locations_count.size > 10 %>
-          <h3>There are <strong><%= @member_locations_count.size %> within <%= @radius %> miles of "<%= params[:postcode] %>"</strong>, please try to be more specific.</h3>
-        <% end %>
-
-        <% unless params[:radius].to_i == @radius %>
-          <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
-        <% end %>
-      <% elsif @place %>
-        <h2 style="display: inline-block">We found <%= @member_locations.size %> notaries in <%= @place %></h2>
-      <% end %>
-    <% end %>
-    <% if @members.present? %>
-      <h2 style="display: inline-block">We found <%= @members.size %>  notaries matching "<%= params[:name] %>"</h2>
-    <% end %>
-
-
+  <h2 style="display: inline-block"><%= @result_information %></h2>
+  <% unless params[:radius].to_i == @radius %>
+    <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
+  <% end %>
 
   <ul id="map_switcher" style="text-align: left; margin-top: -3px; color: #666;">
     <p style="display: inline; line-height: 0px; text-align: left !important;">
