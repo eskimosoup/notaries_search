@@ -15,16 +15,17 @@ default: &default
   pool: 5
   username: root
   password: tmedia
-  host: 192.168.0.41
   #socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
   database: notaries_search_development
+  host: 192.168.0.41
 
 notaries_society_development:
   <<: *default
   database: notaries_society
+  host: 192.168.0.41
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -32,6 +33,7 @@ notaries_society_development:
 test:
   <<: *default
   database: notaries_search_test
+  host: 192.168.0.41
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -55,14 +57,16 @@ test:
 production:
   <<: *default
   database: notaries_search_production
-  username: notaries_search
-  password: <%= ENV['NOTARIES_SEARCH_DATABASE_PASSWORD'] %>
-  
+  username: notaries
+  host: 46.20.121.95GG
+  password: <%= ENV['NOTARIES_DATABASE_PASSWORD'] %>
+
 notaries_society_production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
   database: notaries_society
+  host: 46.20.121.95
   pool: 5
-  username: root
-  password: tmedia
+  username: notaries
+  password: <%= ENV['NOTARIES_DATABASE_PASSWORD'] %>

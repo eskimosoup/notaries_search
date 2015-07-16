@@ -1,3 +1,4 @@
+=begin
 Geocoder.configure(
 
   # geocoding service (see below for supported options):
@@ -5,7 +6,7 @@ Geocoder.configure(
   use_https: true,
 
   :google => {
-    api_key: "AIzaSyDXisOrjsA8EKH7jz9UEXV2TtUu5GeKAdo"
+    api_key: "AIzaSyAzuU-3OnFyUhym2av5zTMVnnpEtMBlEuY"
   }
 
   # IP address geocoding service (see below for supported options):
@@ -24,3 +25,4 @@ Geocoder.configure(
   #:cache_prefix => "..."
 
 )
+=end
