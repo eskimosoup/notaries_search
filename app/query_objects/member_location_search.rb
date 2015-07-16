@@ -2,27 +2,25 @@ class MemberLocationSearch
 
   MAX_RADIUS = 20
 
-  attr_reader :postcode, :town, :county, :name, :show_all, :name_search_type, :first_name, :last_name
+  attr_reader :town, :county, :name, :show_all, :name_search_type, :first_name, :last_name
   attr_accessor :radius
   # search params: name, town, county, postcode, radius
   def initialize(search_params, show_all)
     search_params = search_params.reject{|k,v| v.blank? }
-    @postcode = search_params[:postcode]
     @town = search_params[:town]
-    @county = search_params[:county]
     @name = search_params[:name]
     @first_name, @last_name, @name_search_type = split_name if @name
-    @radius = search_params[:radius].to_i || 5
+    @radius = search_params[:radius].to_i || 5 if search_params[:radius]
     @show_all = show_all
   end
 
   def call
-    if postcode
+    if radius
       results = location_search
     else
       results = standard_search
     end
-    [ results.limit(10), radius, results.size ]
+    [ results.uniq.limit(50), radius, results_information(results.size) ]
   end
 
   private
@@ -39,9 +37,9 @@ class MemberLocationSearch
   end
 
   def find_location_members
-    results = MemberLocation.near("#{postcode}+United+Kingdom", radius)
-    if results.length < 1
-      @radius += 2
+    results = MemberLocation.near("#{town}", radius)
+    if results.length < 1 && radius < 50
+      @radius += 5
       find_location_members
     else
       results
@@ -69,5 +67,13 @@ class MemberLocationSearch
     else
       'AND'
     end
+  end
+
+  def results_information(size)
+    str = "We found #{ size } notaries"
+    str << " within #{ radius } miles of #{ town }" if radius
+    str << " in #{ town }" if town && !radius
+    str << " matching #{ name }" if name
+    str
   end
 end
