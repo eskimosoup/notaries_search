@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def index
     unless params.slice(:name, :town, :postcode, :radius).blank?
-      @member_locations, @radius, @result_information = MemberLocationSearch.new(params.slice(:name, :town, :radius), cookies[:allowed]).call
+      @member_locations, @radius, @result_information = MemberLocationSearch.new(params.slice(:name, :town, :postcode, :radius), cookies[:allowed]).call
     end
   end
 

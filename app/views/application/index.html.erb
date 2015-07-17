@@ -165,8 +165,8 @@
     <%= form_tag '', method: :get, class: 'search-form town-geocoded' do %>
       <h2>Find Notaries Near</h2>
       <div class="field">
-        <%= label_tag :town %><br/>
-        <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-geocode", class: "town-select", style: "width: 100%;" %>
+        <%= label_tag :postcode, "Location/Postcode" %><br/>
+        <%= text_field_tag :postcode, params[:postcode], placeholder: 'Enter Location/Postcode', style: "width: 100%;" %>
       </div>
 
       <div class="field radius">
