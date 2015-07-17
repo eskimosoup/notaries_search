@@ -31,7 +31,7 @@ class MemberLocation < ActiveRecord::Base
   end
 
   def self.grouped_county_and_town_for_select(show_all)
-    if show_all
+    unless show_all
       locations = MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).pluck(:town, :county).uniq
     else
       locations = MemberLocation.where("town <> '' AND county <> ''").pluck(:town, :county).uniq
