@@ -32,7 +32,7 @@ class MemberLocationSearch
     #  results = MemberLocation.near("#{postcode}+United+Kingdom", radius)
     #end
     results = results.joins(:member).where("members.firstname LIKE :first #{name_search_type} members.lastname LIKE :last ", first: "#{first_name}%", last: "#{last_name}%") if name
-    results = results.joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }) if show_all
+    results = results.joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }) unless show_all
     results
   end
 
