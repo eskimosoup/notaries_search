@@ -1,3 +1,21 @@
+<%= content_for :breadcrumbs do %>
+  <section id="breadcrumb">
+    <div class="content">
+      <nav class="beadcrumb-nav">
+        <ul>
+          <li>
+            <a href="http://www.thenotariessociety.org.uk/">Home</a>
+          </li>
+          <li><a href="/">Find A Notary</a></li>
+          <% if request.referer.present? && URI(request.referer).path == '/' %>
+           <li><%= link_to 'Results', request.referer, class: 'btn' %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </section>
+<% end %>
+
 <div id="map" style="width:100%; height:400px;"></div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXisOrjsA8EKH7jz9UEXV2TtUu5GeKAdo&sensor=false"></script>
 
@@ -17,7 +35,6 @@ function initialize() {
 
   for(var location in locations) {
     var temp_latlng = new google.maps.LatLng(locations[location]['latitude'], locations[location]['longitude']);
-    console.log(temp_latlng)
     var marker = new google.maps.Marker({
        position: temp_latlng,
        <% if @member.membership_detail.in_practice == 'N' %>
@@ -56,10 +73,8 @@ $(function(){
 <div class="content">
 
     <div style="position:absolute; left: 0; top: -50px; z-index: 9999999;">
-      <% if params[:search].present? %>
-        <%= link_to '&larr; Back to search results'.html_safe, root_path(search_term: params[:search], radius: params[:radius]), class: 'btn' %>
-      <% elsif params[:name].present? %>
-        <%= link_to '&larr; Back to search results'.html_safe, root_path(name: params[:name]), class: 'btn' %>
+      <% if request.referer.present? && URI(request.referer).path == '/' %>
+       <%= link_to '&larr; Back to search results'.html_safe, request.referer, class: 'btn' %>
       <% end %>
     </div>
     <br>
