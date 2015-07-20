@@ -1,19 +1,18 @@
-<!--
-<%= form_tag '', method: :get, class: 'people-search-form' do %>
-  <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
-  <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
+<%= content_for :breadcrumbs do %>
+  <section id="breadcrumb">
+    <div class="content">
+      <nav class="beadcrumb-nav">
+        <ul>
+          <li>
+            <a href="http://www.thenotariessociety.org.uk/">Home</a>
+          </li>
+          <li><a href="/">Find A Notary</a></li>
+          <li><a href="">Results</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
 <% end %>
-
-<%= form_tag '', method: :get, class: 'location-search-form' do %>
-  <%= text_field_tag :search_term, params[:search_term], placeholder: 'Enter an address' %>
-  <%= field_set_tag do %>
-    <%= label_tag :radius, "Within" %>
-    <%= select_tag :radius, options_for_select(["1 miles", "2 miles", "5 miles", "10 miles", "20 miles"], "#{@radius} miles") %>
-    of
-  <% end %>
-  <%= submit_tag '&rarr;'.html_safe, class: 'inline-search-button', style: 'line-height: 34px; margin-top:11px;' %>
-<% end %>
--->
 
 <div id="map" style="width:100%; height:400px;"></div>
 

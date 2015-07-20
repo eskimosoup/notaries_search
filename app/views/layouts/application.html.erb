@@ -79,19 +79,7 @@
           </div>
         </header>
 
-        <section id="breadcrumb">
-          <div class="content">
-            <nav class="beadcrumb-nav">
-              <ul>
-                <li>
-                  <a href="/">Home</a>
-                </li>
-                <li><a href="find-a-notary">Find A Notary</a></li>
-                <li><a href="">Results</a></li>
-              </ul>
-            </nav>
-          </div>
-        </section>
+        <%= yield :breadcrumbs %>
 
         <!-- Main Content -->
         <%= yield %>

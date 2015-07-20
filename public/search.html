@@ -1,0 +1,301 @@
+
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<title>The Notaries Society | Information &amp; Find A Notary Public</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="The Notaries Society is the representative society for the 900 or so Notaries Public practising in England and Wales." />
+		<meta name="author" content="V4 Technical - Web Design" />
+
+
+		  <link type="text/css" rel="stylesheet" href="http://fast.fonts.net/cssapi/f42f6ccf-8ef2-4da1-ab20-379e36f508f3.css"/>
+	    <link href="http://thenotariessociety.org.uk/style/default.css" rel="stylesheet" type="text/css" media="screen" />
+
+	    <link href="http://thenotariessociety.org.uk//css/print.css" rel="stylesheet" type="text/css" media="print" />
+	    <script type="text/javascript" src="http://thenotariessociety.org.uk/js/jquery.js"></script>
+	    <script type="text/javascript" src="http://thenotariessociety.org.uk/js/jquery.cookie.js"></script>
+
+	    <script type="text/javascript" src="http://thenotariessociety.org.uk/admin/js/jquery.rightClick.js"></script>
+	    <script type="text/javascript" src="http://thenotariessociety.org.uk/admin/js/accordion.jquery.js"></script>
+	    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+		  <style>
+
+			  * {
+				 font-family: arial !important;
+			  }
+
+		  </style>
+		<![endif]-->
+
+			<meta name="viewport" content="width=1024px, user-scalable=no, target-densitydpi=device-dpi" />
+
+			<style>
+				.town-geocoded,
+				.name {
+					overflow: hidden;
+				}
+
+				.name {
+					margin-top: 5px;
+				}
+
+				.town-geocoded label,
+				.name label {
+					color: #fff;
+				}
+
+
+				.town-geocoded .inline-search-button,
+				.name .inline-search-button {
+					top: 8px;
+				}
+
+				.radius-select {
+					width: 20%;
+					float: left;
+				}
+
+				.radius-select select {
+					-webkit-appearance: menulist-button !important;
+					margin-bottom: 0;
+				  width: 100%;
+				  display: inline-block;
+				  height: 36px;
+				  line-height: 36px;
+				  outline: none;
+				  border: none;
+				  background: #ffffff;
+				  background-position: 15px center;
+				  background-repeat: no-repeat;
+				  -webkit-box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.52);
+				  -moz-box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.52);
+				  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.52);
+				  font-size: 18px;
+				  font-family: 'Avenir Next W01', "Avenir Next", "Avenir", Arial, sans-serif;
+				  padding: 2px 15px;
+				}
+
+				.postcode-entry {
+					width: 65%;
+					float: left;
+				}
+
+				.name-entry {
+					width: 75.6%;
+					float: left;
+				}
+
+				#find-a-notary-form .search-box {
+					margin-bottom: 0;
+				  display: inline-block;
+				  outline: none;
+				  border: none;
+				  background: #ffffff;
+				  background-image: url('http://www.thenotariessociety.org.uk/images/search.png');
+				  background-position: 15px center;
+				  background-repeat: no-repeat;
+				  -webkit-box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.52);
+				  -moz-box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.52);
+				  box-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.52);
+				  font-size: 18px;
+				  font-family: 'Avenir Next W01', "Avenir Next", "Avenir", Arial, sans-serif;
+				  padding: 5px 15px 5px 50px;
+					width: 100%;
+					height: 26px;
+					line-height: 26px;
+				}
+
+				#find-a-notary #find-a-notary-form h2 {
+					margin: 12px 0;
+				}
+			</style>
+
+	</head>
+	<body>
+	<div class="wrapper">
+
+		<!-- Site Header -->
+		<header class="content">
+
+							<section id="logo">
+					<h1>The Notaries Society</h1>
+				</section>
+
+			<div id="navigation-container">
+
+				<!-- Search Website -->
+				<section id="site-search">
+					<form action="/search" method="get">
+													<a href="/login?return=/members/home">Society Members Login</a>
+
+						<input name="term" type="text" placeholder="Search our website"><input type="submit" class="inline-search-button" value="search">
+					</form>
+				</section>
+
+				<!-- Main Navigation -->
+				<nav>
+					<ul>
+						<li class="active"><a href="/">Home</a></li>
+						<li class=""><a href="/what-is-a-notary">What Is a Notary</a></li>
+						<li class=""><a href="/find-a-notary">Find a Notary</a></li>
+						<li class=""><a href="/the-notarial-profession">The Notarial Profession</a></li>
+						<li class=""><a href="/complaints">Complaints</a></li>
+						<li class=""><a href="/contact-us">Contact Us</a></li>
+
+													<li class="mobile"><a href="/login?return=/members/home">Society Members Login</a></li>
+
+					</ul>
+				</nav>
+
+			</div>
+
+		</header>
+
+					<!-- Find a Notary -->
+			<section id="find-a-notary">
+				<div class="content">
+
+					<div id="find-a-notary-form">
+						<h2>The Notaries Society</h2>
+
+						<form class="search-form town-geocoded" action="" accept-charset="UTF-8" method="get">
+							<input name="utf8" type="hidden" value="✓">
+
+							<div class="postcode-entry">
+								<label for="postcode">Enter location or postcode</label><br>
+								<input type="text" name="postcode" id="postcode" class="search-box" placeholder="Enter Location/Postcode">
+							</div>
+
+							<div class="radius-select">
+								<label for="radius">Within</label><br>
+								<select name="radius" id="radius"><option value="2">2 miles</option>
+								<option value="5">5 miles</option>
+								<option value="10">10 miles</option>
+								<option value="20">20 miles</option></select>
+							</div>
+
+							<input type="submit" name="commit" value="Search" class="inline-search-button">
+						</form>
+
+						<form class="search-form name" action="" accept-charset="UTF-8" method="get">
+							<input name="utf8" type="hidden" value="✓">
+
+				      <div class="name-entry">
+				        <label for="name">Name</label><br>
+				        <input type="text" name="name" class="search-box" id="name" placeholder="Enter a name">
+				      </div>
+
+
+			        <input type="submit" name="commit" value="Search" class="inline-search-button">
+						</form>
+
+						<p class="search-details">Use our detailed online search to find notaries in your area, or by name and location.</p>
+					</div>
+
+				</div>
+			</section>
+
+
+		<!--<div id="topnavigation">
+			  <ul>
+				<li><a href="/students/home"><img src="/images/nav-studentarea.gif" /></a></li>
+				  <li><a href="/council/home"><img src="/images/nav-councilmembers.gif" /></a></li>
+				  <li><a href="/members/home"><img src="/images/nav-membersarea.gif" /></a></li>
+			  </ul>
+		  </div>-->
+
+				<div class="content columns" id="boxes">
+
+			<div class="action-box">
+				<a href="/what-is-a-notary">
+
+					<img src="/images/how-to-become-a-notary.jpg" alt="How to become a notary">
+					<h2>What is a notary?</h2>
+				</a>
+			</div>
+
+			<div class="action-box">
+				<a href="/the-notarial-profession">
+					<img src="/images/the-notorial-profession.jpg" alt="The Notarial Profession">
+					<h2>The Notarial Profession</h2>
+				</a>
+			</div>
+
+			<div class="action-box">
+				<a href="/becoming-a-notary">
+					<img src="/images/what-is-a-notary.jpg" alt="what is a notary">
+					<h2>How to become a notary</h2>
+				</a>
+			</div>
+
+		</div>
+
+
+		<!-- Main Content -->
+
+
+
+
+			<div class="content columns">
+
+
+					<section id="sidebar" class="home-sidebar">
+						<h2>What do Notaries do?</h2>
+
+						<p>Prepare and witness power of attorney for use overseas</p>
+
+						<p>Deal with purchase or sale of land and property abroad</p>
+
+						<p>Authenticate documents for immigration or emigration purposes, or to apply to marry or to work abroad</p>
+
+						<p>Authenticate company and business documents and transactions</p>
+
+						<p><a href="/what-a-notary-does" class="btn">Find out more</a></p>
+
+					</section>
+
+
+
+				<section id="main-content">
+
+				<h2>Welcome to the Society Website</h2>
+<p>The Notaries Society is the representative society for the 900 or so Notaries Public practising in England and Wales. From this page you will find various topics of interest to members of the profession and the public alike. <br /><br />The Notaries Society was founded in 1882 and was incorporated in April 1907, the twenty fifth anniversary of its founding. Membership of the Notaries Society is open to all Notaries in England and Wales, and to other Notaries whose Faculty is derived from the Court of Faculties. <br /><br />Associate membership is open to notaries practising overseas. The Society is a membership body for the profession and has no disciplinary functions.</p>
+<p>Scrivener Notaries are represented by the Society of Scrivener Notaries.</p>
+				</section>
+
+
+
+
+			</div>
+
+
+	<div class="push"></div>
+	</div>
+
+	<!-- Footer -->
+	<footer>
+		<div class="content">
+			<span id="copyright">Copyright 2015 The Notaries Society | Web Design and Development by <a href="http://v4technical.com">V4 Technical Ltd</a></span>
+		</div>
+	</footer>
+
+
+	<script type="text/javascript">
+			</script>
+
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-15181484-1");
+	pageTracker._trackPageview();
+	} catch(err) {}</script>
+
+	</body>
+	</html>
