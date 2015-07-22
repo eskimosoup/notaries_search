@@ -16,7 +16,7 @@
 
 <div id="map" style="width:100%; height:400px;"></div>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXisOrjsA8EKH7jz9UEXV2TtUu5GeKAdo&sensor=false"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzuU-3OnFyUhym2av5zTMVnnpEtMBlEuY&sensor=false"></script>
 <script src="http://thenotariessociety.org.uk/js/cluster.js"></script>
 <script type="text/javascript">
   var results = [];
@@ -146,57 +146,59 @@
 </script>
 
 <div class="content columns">
-  <div class="four columns">
-    <%= form_tag '', method: :get, class: 'search-form town' do %>
-      <h2>Find Notaries In</h2>
-      <div class="field">
-        <%= label_tag :town %><br/>
-        <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-search", class: "town-select", style: "width: 100%;" %>
-      </div>
+  <div class="search-container">
+    <div class="small columns">
+      <%= form_tag '', method: :get, class: 'search-form town' do %>
+        <h2>Find Notaries In</h2>
+        <div class="field">
+          <%= label_tag :town %><br/>
+          <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-search", class: "town-select", style: "width: 100%;" %>
+        </div>
 
-      <div class="actions">
-        <%= submit_tag 'Search', class: 'search-button' %>
-      </div>
-      <div class="clear"></div>
-    <% end %>
-  </div>
-  <div class="four columns">
-    <%= form_tag '', method: :get, class: 'search-form town-geocoded' do %>
-      <h2>Find Notaries Near</h2>
-      <div class="field">
-        <%= label_tag :postcode, "Location/Postcode" %><br/>
-        <%= text_field_tag :postcode, params[:postcode], placeholder: 'Enter Location/Postcode', style: "width: 100%;" %>
-      </div>
+        <div class="actions">
+          <%= submit_tag 'Search', class: 'search-button' %>
+        </div>
+        <div class="clear"></div>
+      <% end %>
+    </div>
+    <div class="large columns">
+      <%= form_tag '', method: :get, class: 'search-form town-geocoded' do %>
+        <h2>Find Notaries Near</h2>
+        <div class="field">
+          <%= label_tag :postcode, "Location or postcode" %><br/>
+          <%= text_field_tag :postcode, params[:postcode], placeholder: 'Enter location or postcode', style: "width: 100%;" %>
+        </div>
 
-      <div class="field radius">
-        <%= label_tag :radius, "Within" %><br/>
-        <%= select_tag :radius, options_for_select([["2 miles", 2], ["5 miles", 5], ["10 miles", 10], ["20 miles", 20]], selected: @radius), style: "width: 100%;" %>
-      </div>
+        <div class="field radius">
+          <%= label_tag :radius, "Within" %><br/>
+          <%= select_tag :radius, options_for_select([["2 miles", 2], ["5 miles", 5], ["10 miles", 10], ["20 miles", 20]], selected: @radius), style: "width: 100%;" %>
+        </div>
 
-      <div class="actions">
-        <%= submit_tag 'Search', class: 'search-button' %>
-      </div>
-      <div class="clear"></div>
-    <% end %>
-  </div>
-  <div class="four columns">
-    <%= form_tag '', method: :get, class: 'search-form name' do %>
-      <h2>Find Notaries By Name</h2>
-      <div class="field">
-        <%= label_tag :name %><br/>
-        <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
-      </div>
+        <div class="actions">
+          <%= submit_tag 'Search', class: 'search-button' %>
+        </div>
+        <div class="clear"></div>
+      <% end %>
+    </div>
+    <div class="small columns">
+      <%= form_tag '', method: :get, class: 'search-form name' do %>
+        <h2>Find Notaries By Name</h2>
+        <div class="field">
+          <%= label_tag :name %><br/>
+          <%= text_field_tag :name, params[:name], placeholder: 'Enter a name' %>
+        </div>
 
-      <div class="actions">
-        <%= submit_tag 'Search', class: 'search-button' %>
-      </div>
-      <div class="clear"></div>
-    <% end %>
+        <div class="actions">
+          <%= submit_tag 'Search', class: 'search-button' %>
+        </div>
+        <div class="clear"></div>
+      <% end %>
+    </div>
   </div>
 
 
   <h2 style="display: inline-block"><%= @result_information %></h2>
-  <% unless params[:radius].to_i == @radius %>
+  <% unless params[:radius].to_i == @radius || params[:radius].blank? %>
     <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
   <% end %>
 

@@ -12,6 +12,13 @@
   <% if member_location.member.membership_detail.in_practice == 'N' %>
     <p> <em>No longer in practice</em> </p>
   <% end %>
-
+    
+  
+  <% if member_location.has_attribute?(:distance) %>
+    <p class="distance">
+      <%= number_with_precision member_location.distance, precision: 2 %> miles from your search
+    </p>
+  <% end %>
+  
   <%= render 'members/details', details: member_location.member.member_locations, individual: member_location.member, location_result: member_location %>
 </li>
