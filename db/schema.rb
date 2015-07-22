@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707130510) do
+ActiveRecord::Schema.define(version: 20150722155503) do
 
   create_table "member_locations", force: :cascade do |t|
     t.integer  "member_id",      limit: 4
@@ -33,23 +33,32 @@ ActiveRecord::Schema.define(version: 20150707130510) do
 
   add_index "member_locations", ["member_id"], name: "index_member_locations_on_member_id", using: :btree
 
+  create_table "member_page_views", force: :cascade do |t|
+    t.integer  "member_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "member_page_views", ["member_id"], name: "index_member_page_views_on_member_id", using: :btree
+
   create_table "members", force: :cascade do |t|
-    t.integer  "contact_id",     limit: 4
-    t.string   "status",         limit: 7
-    t.string   "role",           limit: 8
-    t.string   "email",          limit: 200
-    t.string   "title",          limit: 10
-    t.string   "firstname",      limit: 100
-    t.string   "lastname",       limit: 100
-    t.string   "username",       limit: 255
-    t.string   "password",       limit: 200
-    t.text     "notes",          limit: 65535
-    t.string   "forgotten_hash", limit: 32
-    t.integer  "lastlogin",      limit: 4
-    t.integer  "created",        limit: 4
-    t.integer  "modified",       limit: 4
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.integer  "contact_id",              limit: 4
+    t.string   "status",                  limit: 7
+    t.string   "role",                    limit: 8
+    t.string   "email",                   limit: 200
+    t.string   "title",                   limit: 10
+    t.string   "firstname",               limit: 100
+    t.string   "lastname",                limit: 100
+    t.string   "username",                limit: 255
+    t.string   "password",                limit: 200
+    t.text     "notes",                   limit: 65535
+    t.string   "forgotten_hash",          limit: 32
+    t.integer  "lastlogin",               limit: 4
+    t.integer  "created",                 limit: 4
+    t.integer  "modified",                limit: 4
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "member_page_views_count", limit: 4,     default: 0
   end
 
   create_table "membership_details", force: :cascade do |t|
@@ -173,5 +182,6 @@ ActiveRecord::Schema.define(version: 20150707130510) do
   end
 
   add_foreign_key "member_locations", "members"
+  add_foreign_key "member_page_views", "members"
   add_foreign_key "membership_details", "members"
 end
