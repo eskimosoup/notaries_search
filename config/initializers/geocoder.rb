@@ -1,4 +1,3 @@
-begin
 Geocoder.configure(
 
   # geocoding service (see below for supported options):
@@ -25,4 +24,3 @@ Geocoder.configure(
   #:cache_prefix => "..."
 
 )
-end
