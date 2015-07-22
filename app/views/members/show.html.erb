@@ -91,43 +91,37 @@ $(function(){
     <p>
       <%= mail_to @member.email, @member.email, class: 'email' if @member.email.present? %>
 
-      <% @member.member_locations.group_by(&:email).each do |item, location| %>
-        <% next if item.blank? %>
-        <%= mail_to item, item, class: 'email' unless item == @member.email %>
+      <% @member.member_locations.map(&:email).reject(&:blank?).uniq.each do |email| %>
+        <%= mail_to email, email, class: 'email' unless email == @member.email %>
       <% end %>
     </p>
 
     <p>
-      <% @member.member_locations.group_by(&:website).each do |item, location| %>
-        <% next if item.blank? %>
-        <%= link_to item, item, class: 'website', target: '_blank' %>
+      <% @member.member_locations.map(&:website).reject(&:blank?).uniq.each do |website| %>
+        <%= link_to website, website, class: 'website', target: '_blank' %>
       <% end %>
     </p>
 
     <p>
-      <% @member.member_locations.group_by(&:contact_phone).each do |item, location| %>
-        <% next if item.blank? %>
-        <%= link_to item, "tel:#{item}", class: 'phone' %>
+      <% @member.member_locations.map(&:contact_phone).reject(&:blank?).uniq.each do |contact_phone| %>
+        <%= link_to contact_phone, "tel:#{contact_phone}", class: 'phone' %>
       <% end %>
 
-      <% @member.member_locations.group_by(&:contact_mobile).each do |item, location| %>
-        <% next if item.blank? %>
-        <%= link_to item, "tel:#{item}", class: 'mobile' %>
+      <% @member.member_locations.map(&:contact_mobile).reject(&:blank?).uniq.each do |contact_mobile| %>
+        <%= link_to contact_mobile, "tel:#{contact_mobile}", class: 'mobile' %>
       <% end %>
     </p>
 
     <p>
-      <% @member.member_locations.group_by(&:fax).each do |item, location| %>
-        <% next if item.blank? %>
-        <%= link_to item, "", class: 'fax' %>
+      <% @member.member_locations.map(&:fax).reject(&:blank?).uniq.each do |fax| %>
+        <%= link_to fax, "", class: 'fax' %>
       <% end %>
     </p>
 
     <p>
-      <% @member.member_locations.group_by(&:dx_number).each_with_index do |(item, location), index| %>
-        <% next if item.blank? %>
+      <% @member.member_locations.map(&:dx_number).reject(&:blank?).uniq.each_with_index do |dx_number, index| %>
         <%= raw '<br />' if index >= 1 %>
-        <%= link_to item, "", class: 'dx' %>
+        <%= link_to dx_number, "", class: 'dx' %>
       <% end %>
     </p>
   </section>
