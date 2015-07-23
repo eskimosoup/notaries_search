@@ -16,5 +16,7 @@
 //= require_tree .
 
 $(document).ready(function() {
-  $("select.town-select").select2();
+  $("select.town-select").select2({
+    minimumInputLength: 3
+  });
 });

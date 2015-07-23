@@ -57,7 +57,7 @@
         $('#notatries_places').show();
       }
     <% end %>
-    console.log(results_places[0]);
+
     var mapOptions = {
       center: new google.maps.LatLng(53.4924471, -0.9721805),
       zoom: 8,
@@ -152,7 +152,8 @@
         <h2>Find Notaries In</h2>
         <div class="field">
           <%= label_tag :town %><br/>
-          <%= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-search", class: "town-select", style: "width: 100%;" %>
+          <%#= select_tag :town, grouped_options_for_select(MemberLocation.grouped_county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-search", class: "town-select", style: "width: 100%;" %>
+          <%= select_tag :town, options_for_select(MemberLocation.county_and_town_for_select(cookies[:allowed]), selected: params[:town]), include_blank: "Not Set", id: "town-name-search", class: "town-select", style: "width: 100%;" %>
         </div>
 
         <div class="actions">

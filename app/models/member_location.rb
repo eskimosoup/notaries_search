@@ -31,21 +31,39 @@ class MemberLocation < ActiveRecord::Base
   end
 
   def self.grouped_county_and_town_for_select(show_all)
+    locations = MemberLocation.locations_for_select(show_all)
+    MemberLocation.make_hash_from_locations(locations)
+  end
+
+  def self.locations_for_select(show_all)
     unless show_all
-      locations = MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).pluck(:town, :county).uniq
+      MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).pluck(:town, :county).uniq
     else
-      locations = MemberLocation.where("town <> '' AND county <> ''").pluck(:town, :county).uniq
+      MemberLocation.where("town <> '' AND county <> ''").pluck(:town, :county).uniq
     end
+  end
+
+  def self.make_hash_from_locations(locations)
     hash = locations.each_with_object({}) do |town_and_county, hash|
       hash[town_and_county.last] = [] if hash[town_and_county.last].nil?
       hash[town_and_county.last] << town_and_county.first
     end
+    MemberLocation.sort_hash_of_arrays(hash)
+  end
+
+  def self.sort_hash_of_arrays(hash)
     # sort the arrays
     hash.each do |k,v|
       hash[k] = v.sort
     end
     # sort the keys
     hash.sort
+  end
+
+  def self.county_and_town_for_select(show_all)
+    locations = MemberLocation.locations_for_select(show_all)
+    locations = locations.sort_by{|x| x.first }
+    locations.map{|x| "#{x.first} (#{x.last})"}
   end
 
 end
