@@ -7,7 +7,7 @@ class MemberLocationSearch
   # search params: name, town, county, postcode, radius
   def initialize(search_params, show_all)
     search_params = search_params.reject{|k,v| v.blank? }
-    @town = search_params[:town]
+    @town, @county = split_town_and_county(search_params[:town])
     @name = search_params[:name]
     @postcode = search_params[:postcode]
     @first_name, @last_name, @name_search_type = split_name if @name
@@ -17,7 +17,6 @@ class MemberLocationSearch
 
   def call
     results = get_results
-
     [ results, radius, results_information(results.length) ]
   end
 
@@ -32,16 +31,10 @@ class MemberLocationSearch
 
   def search_by_type
     if radius
-      location_search
+      find_location_members
     else
       standard_search
     end
-  end
-
-  def location_search
-    results = find_location_members
-    results = results.joins(:member).where("members.firstname LIKE :first #{name_search_type} members.lastname LIKE :last ", first: "#{first_name}%", last: "#{last_name}%") if name
-    results
   end
 
   def find_location_members
@@ -58,6 +51,7 @@ class MemberLocationSearch
     results = MemberLocation.where(nil)
     results = results.joins(:member).where("members.firstname LIKE :first #{name_search_type} members.lastname LIKE :last ", first: "#{first_name}%", last: "#{last_name}%") if name
     results = results.where(town: town) if town
+    results = results.where(county: county) if county
     results
   end
 
@@ -83,5 +77,12 @@ class MemberLocationSearch
     str << " in #{ town }" if town && !radius
     str << " matching #{ name }" if name
     str
+  end
+
+  def split_town_and_county(town_and_county)
+    dirty_town, dirty_county = town_and_county.split("(")
+    town = dirty_town.rstrip
+    county = dirty_county.chop #remove closing space
+    [town, county]
   end
 end
