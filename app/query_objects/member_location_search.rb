@@ -7,7 +7,7 @@ class MemberLocationSearch
   # search params: name, town, county, postcode, radius
   def initialize(search_params, show_all)
     search_params = search_params.reject{|k,v| v.blank? }
-    @town, @county = split_town_and_county(search_params[:town])
+    @town, @county = split_town_and_county(search_params[:town]) if search_params[:town]
     @name = search_params[:name]
     @postcode = search_params[:postcode]
     @first_name, @last_name, @name_search_type = split_name if @name
