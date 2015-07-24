@@ -210,7 +210,20 @@
     </p>
   </ul>
 
-  <p>Below you can find a list of all members of the Notaries Society operating in this area. Each result supplies you with both the Notaries Name and contact details, as well as their address. You will need to make an appointment to see the notary.  They will charge a fee, but you can ask for an estimate when making your appointment.  You will have to produce identitfication.</p>
+  <p>
+    You will need to make an appointment to see the notary. They will charge a fee, but you can ask for an estimate when making your appointment.
+    You will have to produce identification.
+  </p>
+
+  <p class="other-areas">
+    To find notaries in other areas visit the following websites:
+  </p>
+  <ul class="other-areas">
+    <li><%= link_to "Scotland", "http://www.lawscot.org.uk" %></li>
+    <li><%= link_to "Northern Ireland", "http://www.lawsoc-ni.org" %></li>
+    <li><%= link_to "Eire", "http://www.notarypublic.ie" %></li>
+  </ul>
+
 
   <% if @member_locations.present? %>
     <ul id="notatries_places">
