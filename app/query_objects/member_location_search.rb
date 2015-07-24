@@ -38,7 +38,7 @@ class MemberLocationSearch
   end
 
   def find_location_members
-    results = MemberLocation.near("#{postcode}", radius)
+    results = MemberLocation.near("#{postcode}+united+kingdom", radius)
     if results.length < 1 && radius < 50
       @radius += 5
       find_location_members

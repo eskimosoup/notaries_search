@@ -17,7 +17,7 @@ class MemberLocation < ActiveRecord::Base
     # sleep(10)
     # group.each { |x| x.save! }
     #end
-    where("latitude is null and postcode != '' and town != ''").find_in_batches(batch_size: 100) do |group|
+    find_in_batches(batch_size: 100) do |group|
       sleep(10)
       group.each do |x|
         latlng = Geocoder.coordinates("#{x.address.gsub(/\n/, '')}+#{x.postcode}")
