@@ -38,8 +38,6 @@ class MemberLocationSearch
   end
 
   def find_location_members
-    new_postcode = "SW1, London" if postcode.downcase.strip == 'sw1'
-    postcode = new_postcode if new_postcode.present?
     results = MemberLocation.near("#{postcode}+united+kingdom", radius)
     if results.length < 1 && radius < 50
       @radius += 5

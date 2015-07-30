@@ -166,7 +166,7 @@
       <%= form_tag '', method: :get, class: 'search-form town-geocoded' do %>
         <h2>Find Notaries Near</h2>
         <div class="field">
-          <%= label_tag :postcode, "Location or postcode" %><br/>
+          <%= label_tag :postcode, "Location or <abbr title='Please enter at least the first part of a postcode'>postcode</abbr>".html_safe %><br/>
           <%= text_field_tag :postcode, params[:postcode], placeholder: 'Enter location or postcode', style: "width: 100%;" %>
         </div>
 
@@ -199,6 +199,7 @@
 
 
   <h2 style="display: inline-block"><%= @result_information %></h2>
+  
   <% unless params[:radius].to_i == @radius || params[:radius].blank? %>
     <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
   <% end %>

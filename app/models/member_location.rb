@@ -17,7 +17,7 @@ class MemberLocation < ActiveRecord::Base
     # sleep(10)
     # group.each { |x| x.save! }
     #end    
-    where('postcode != "" and updated_at < "2015-07-30"').find_in_batches(start: 0, batch_size: 1800) do |group|
+    where('postcode != "" and updated_at < "2015-07-30"').find_in_batches(batch_size: 100) do |group|
       group.each do |x|
         latlng = Geocoder.coordinates("#{x.address.gsub(/\n/, '')}+#{x.postcode}") unless x.postcode.blank?
         latlng = Geocoder.coordinates("#{x.county}+#{x.postcode}") unless latlng.present? || ( x.county.blank? && x.postcode.blank? )
