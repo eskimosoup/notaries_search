@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722155503) do
+ActiveRecord::Schema.define(version: 20150729135141) do
 
   create_table "member_locations", force: :cascade do |t|
     t.integer  "member_id",      limit: 4
@@ -181,7 +181,33 @@ ActiveRecord::Schema.define(version: 20150722155503) do
     t.string "environment", limit: 255
   end
 
+  create_table "search_results", force: :cascade do |t|
+    t.integer  "search_id",          limit: 4
+    t.integer  "member_location_id", limit: 4
+    t.float    "distance",           limit: 24
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "search_results", ["member_location_id"], name: "index_search_results_on_member_location_id", using: :btree
+  add_index "search_results", ["search_id"], name: "index_search_results_on_search_id", using: :btree
+
+  create_table "searches", force: :cascade do |t|
+    t.string   "first_name",           limit: 255
+    t.string   "last_name",            limit: 255
+    t.string   "town",                 limit: 255
+    t.string   "county",               limit: 255
+    t.string   "postcode",             limit: 255
+    t.integer  "radius",               limit: 4,   default: 5
+    t.boolean  "show_all",                         default: false
+    t.integer  "search_results_count", limit: 4,   default: 0
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+  end
+
   add_foreign_key "member_locations", "members"
   add_foreign_key "member_page_views", "members"
   add_foreign_key "membership_details", "members"
+  add_foreign_key "search_results", "member_locations"
+  add_foreign_key "search_results", "searches"
 end

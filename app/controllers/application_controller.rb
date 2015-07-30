@@ -9,7 +9,8 @@ class ApplicationController < ActionController::Base
 
   def index
     unless params.slice(:name, :town, :postcode, :radius).blank?
-      @member_locations, @radius, @result_information = MemberLocationSearch.new(params.slice(:name, :town, :postcode, :radius), cookies[:allowed]).call
+      @search = CreateSearch.new(params.slice(:name, :town, :postcode, :radius), cookies[:allowed]).save
+      @search_results = @search.search_results.includes(member_location: { member: :member_locations })
     end
   end
 
