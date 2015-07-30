@@ -20,15 +20,13 @@
 <script src="http://thenotariessociety.org.uk/js/cluster.js"></script>
 <script type="text/javascript">
   var results = [];
-  var results_people = [];
-  var results_places = [];
   var latlngs = [];
   var infoWindows = [];
   var markers = [];
 
-  <% if @member_locations.present? %>
-    <% @member_locations.each do |member_location| %>
-      results_places.push({
+  <% if @search_results.present? %>
+    <% @search_results.map(&:member_location).each do |member_location| %>
+      results.push({
         "name":"<%= member_location.member.firstname %> <%= member_location.member.lastname %>",
         "email":"<% if member_location.email.present? %><%= member_location.email %><% else %><%= member_location.member.email%><% end %>",
         "address":"<%= j member_location.address %>",
@@ -51,11 +49,8 @@
     infoWindows = [];
     markers = [];
 
-    <% if @member_locations.present? %>
-      if(results.length == 0) {
-        results = results_places;
-        $('#notatries_places').show();
-      }
+    <% if @search_results.present? %>
+      $('#notatries_places').show();
     <% end %>
 
     var mapOptions = {
@@ -198,9 +193,9 @@
   </div>
 
 
-  <h2 style="display: inline-block"><%= @result_information %></h2>
-  
-  <% unless params[:radius].to_i == @radius || params[:radius].blank? %>
+  <h2 style="display: inline-block"><%= @search.result_information %></h2>
+
+  <% unless params[:radius].to_i == @search.radius || params[:radius].blank? %>
     <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
   <% end %>
 
@@ -226,10 +221,10 @@
   </ul>
 
 
-  <% if @member_locations.present? %>
+  <% if @search_results.present? %>
     <ul id="notatries_places">
       <% i = 1 %>
-      <% @member_locations.in_groups_of(2, false) do |group| %>
+      <% @search_results.in_groups_of(2, false) do |group| %>
         <script>
           $(function() {
             rightHeight = $('#notary-places-<%= i %>').height();
@@ -242,13 +237,13 @@
               $('#notary-places-<%= i %>').css('height', leftHeight);
             }
           });
-      </script>
+        </script>
 
-      <% group.each do |member_location| %>
-        <%= render partial: 'member_locations/member_location', locals: { member_location: member_location, i: i } %>
-        <% i = i + 1 %>
+        <% group.each do |search_result| %>
+          <%= render partial: 'member_locations/member_location', locals: { member_location: search_result.member_location, search_result: search_result, i: i } %>
+          <% i = i + 1 %>
+        <% end %>
       <% end %>
-    <% end %>
     </ul>
   <% end %>
   <div class="push"></div>

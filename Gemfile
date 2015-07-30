@@ -45,6 +45,7 @@ end
 
 group :development do
   gem 'quiet_assets'
+  gem 'guard-rspec', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -56,4 +57,5 @@ group :test do
   gem 'shoulda', '~> 3.5.0'
   gem "factory_girl_rails", '~> 4.5.0'
   gem "capybara", '~> 2.4.4'
+  gem 'database_cleaner', '~> 1.4.1'
 end

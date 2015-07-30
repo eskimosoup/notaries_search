@@ -2,6 +2,8 @@ FactoryGirl.define do
   factory :member do
     sequence(:username) {|n| "member#{n}" }
     email { "#{username}@example.com" }
+    firstname "James"
+    lastname "Paul"
 
     factory :member_with_locations do
       transient do

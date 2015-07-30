@@ -5,20 +5,20 @@
     <%= image_tag "http://www.thenotariessociety.org.uk/includes/mapmarker.php?no=#{i}", class: "map_pin" %>
   <% end %>
 
-  <%= link_to member_path(notary: member_location.member.id, search: params[:search_term], radius: @radius), style: 'text-decoration:none', title: 'View notary' do %>
+  <%= link_to member_path(notary: member_location.member.id, search: params[:search_term], radius: @search.radius), style: 'text-decoration:none', title: 'View notary' do %>
     <h3> <%= member_location.member.title %> <%= member_location.member.firstname %> <%= member_location.member.lastname %></h3>
   <% end %>
 
   <% if member_location.member.membership_detail.in_practice == 'N' %>
     <p> <em>No longer in practice</em> </p>
   <% end %>
-    
-  
-  <% if member_location.has_attribute?(:distance) %>
+
+
+  <% if search_result.distance %>
     <p class="distance">
-      <%= number_with_precision member_location.distance, precision: 2 %> miles from your search
+      <%= number_with_precision search_result.distance, precision: 2 %> miles from your search
     </p>
   <% end %>
-  
+
   <%= render 'members/details', details: member_location.member.member_locations, individual: member_location.member, location_result: member_location %>
 </li>
