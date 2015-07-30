@@ -3,6 +3,6 @@ Geocoder.configure(
   use_https: true,
 
   :google => {
-    #api_key: "AIzaSyDXisOrjsA8EKH7jz9UEXV2TtUu5GeKAdo"
+    api_key: "AIzaSyDXisOrjsA8EKH7jz9UEXV2TtUu5GeKAdo"
   }
 )
