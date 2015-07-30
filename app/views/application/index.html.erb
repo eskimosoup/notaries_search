@@ -193,9 +193,9 @@
   </div>
 
 
-  <h2 style="display: inline-block"><%= @search.result_information %></h2>
+  <h2 style="display: inline-block"><%= @search.result_information if @search %></h2>
 
-  <% unless params[:radius].to_i == @search.radius || params[:radius].blank? %>
+  <% unless (@search && (params[:radius].to_i == @search.radius)) || params[:radius].blank? %>
     <p><em>There are no notaries within the radius specified so the radius has been increased to show the closest.</em></p>
   <% end %>
 
