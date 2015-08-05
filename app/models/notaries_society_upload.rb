@@ -22,13 +22,15 @@ class NotariesSocietyUpload < ActiveRecord::Base
       membership_detail.update_attributes(user.membership_details_attrs)
 
       if user.address.present?
-        member_location = MemberLocation.where(member_id: new_member.id, address: user.address).first_or_initialize
+        member_location = MemberLocation.where(member_id: new_member.id).first_or_initialize
         member_location.update_attributes(user.location_attrs)
       end
 
-      if user.address2.present?
-        member_location2 = MemberLocation.where(member_id: new_member.id, address: user.address2).first_or_initialize
+      member_location2 = MemberLocation.where(member_id: new_member.id).last
+      if member_location2.present? && user.address2.present?
         member_location2.update_attributes(user.location2_attrs)
+      elsif member_location2.blank? && user.address2.present?
+        new_member.member_locations.create(user.location2_attrs)
       end
     end
 
