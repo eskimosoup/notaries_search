@@ -13,6 +13,28 @@ class NotariesSocietyUpload < ActiveRecord::Base
     MemberLocation.batch_geocode
   end
 
+  def self.update
+    all.find_each do |user|
+      new_member =  Member.find_or_initialize_by(contact_id: user.contact_id)
+      new_member.update_attributes(user.member_attrs)
+
+      membership_detail = MembershipDetail.find_or_initialize_by(member_id: new_member.id)
+      membership_detail.update_attributes(user.membership_details_attrs)
+
+      if user.address.present?
+        member_location = MemberLocation.where(member_id: new_member.id, address: user.address).first_or_initialize
+        member_location.update_attributes(user.location_attrs)
+      end
+
+      if user.address2.present?
+        member_location2 = MemberLocation.where(member_id: new_member.id, address: user.address2).first_or_initialize
+        member_location2.update_attributes(user.location2_attrs)
+      end
+    end
+
+    #MemberLocation.batch_geocode
+  end
+
   def member_attrs
     {
       contact_id: contact_id,
@@ -86,7 +108,7 @@ class NotariesSocietyUpload < ActiveRecord::Base
       email: email2
     }
   end
-  
+
   # def self.has_location2?(user)
   #  if user.address2.present?
   #   true
