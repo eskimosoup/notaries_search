@@ -12,7 +12,7 @@
 <p>
   <% details.order("id #{order}").group_by(&:website).each do |item, location| %>
     <% next if item.blank? %>
-    <%= link_to item, item, class: 'website', target: '_blank' %>
+    <%= link_to item, smart_add_url_protocol(item), class: 'website', target: '_blank' %>
   <% end %>
 </p>
 
