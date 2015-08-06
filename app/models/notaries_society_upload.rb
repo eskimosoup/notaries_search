@@ -29,9 +29,9 @@ class NotariesSocietyUpload < ActiveRecord::Base
         end
 
         member_location2 = MemberLocation.where(member_id: new_member.id).last
-        if member_location2.present? && user.address2.present?
+        if member_location2.present? && member_location2 != member_location && user.address2.present?
           member_location2.update_attributes(user.location2_attrs)
-        elsif member_location2.blank? && user.address2.present?
+        elsif (member_location2.blank? || member_location2 == member_location) && user.address2.present?
           new_member.member_locations.create(user.location2_attrs)
         end
       end
