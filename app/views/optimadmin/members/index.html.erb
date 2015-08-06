@@ -1,0 +1,20 @@
+<%= render 'optimadmin/shared/header/main_title', title: 'Manage Members' %>
+
+<div class="main-content">
+  <div class="row module-header collapse">
+    <%= render 'optimadmin/shared/search_form' %>
+    <%= render 'optimadmin/shared/module/index/pagination' %>
+    <%= render 'optimadmin/shared/module/index/recycle_bin', items: @members.size, path: root_url %>
+
+    <%= link_to 'Re-import data', reimport_members_path, class: 'action-button' %>
+  </div>
+
+  <div class="row collapse module-list-index header">
+    <%= list_item 'large-6 small-4' do 'Title' end %>
+
+    <%= list_item 'large-6 small-4' do 'Updated At' end %>
+  </div>
+
+  <%= render partial: 'member', collection: @members, as: :member_presenter %>
+  <%= paginate @members %>
+</div>

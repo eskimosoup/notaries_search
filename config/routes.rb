@@ -4,6 +4,13 @@ Rails.application.routes.draw do
   root to: "application#index"
 end
 Optimadmin::Engine.routes.draw do
-  get 'members/show'
-
+  resources :members, except: [:show] do
+    collection do
+      post 'order'
+      get 'reimport', as: 'reimport'
+    end
+    member do
+      get 'toggle'
+    end
+  end
 end

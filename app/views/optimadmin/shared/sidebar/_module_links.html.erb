@@ -24,17 +24,10 @@
       </div>
 
       <ul class="content-category-list">
+          <li><%= link_to 'Members', members_path %></li>
         <% if can? :manage, Optimadmin::MenuItem %>
-          <li><%= link_to 'Site Navigation', menu_items_path %></li>
+          <!-- <li><%= link_to 'Site Navigation', menu_items_path %></li> -->
         <% end %>
-      </ul>
-
-      <div class="content-category-type">
-        Website Visuals
-      </div>
-
-      <ul class="content-category-list">
-
       </ul>
     </div>
   </div>
