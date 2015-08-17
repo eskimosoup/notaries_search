@@ -16,7 +16,7 @@ class MemberLocation < ActiveRecord::Base
     #where('latitude is null').find_in_batches(batch_size: 100) do |group|
     # sleep(10)
     # group.each { |x| x.save! }
-    #end    
+    #end
     where('postcode != "" and updated_at < "2015-07-30"').find_in_batches(batch_size: 100) do |group|
       group.each do |x|
         latlng = Geocoder.coordinates("#{x.address.gsub(/\n/, '')}+#{x.postcode}") unless x.postcode.blank?
@@ -37,9 +37,9 @@ class MemberLocation < ActiveRecord::Base
 
   def self.locations_for_select(show_all)
     unless show_all
-      MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }).pluck(:town, :county).uniq
+      MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where("membership_details.in_practice = ? AND membership_details.is_admin = ? AND membership_details.membership_class <> ''", 'Y', 'N').pluck(:town, :county).uniq
     else
-      MemberLocation.where("town <> '' AND county <> ''").pluck(:town, :county).uniq
+      MemberLocation.where("town <> '' AND county <> ''").joins(:membership_detail).where("membership_details.membership_class <> ''").pluck(:town, :county).uniq
     end
   end
 
