@@ -25,7 +25,8 @@ class Search < ActiveRecord::Base
 
   def set_member_locations
     results = search_by_type
-    results = results.joins(:membership_detail).where(membership_details: { in_practice: 'Y', is_admin: 'N' }) unless show_all
+    results = results.joins(:membership_detail).where("membership_details.in_practice = ? AND membership_details.is_admin = ? AND membership_details.membership_class <> ''", 'Y', 'N') unless show_all
+    results = results.joins(:membership_detail).where("membership_details.membership_class <> ''") if show_all
     results = results.group(:member_id).limit(50)
     results.map{|x| { member_location_id: x.id, distance: x.try(:distance) } }.each do |search_result_hash|
       search_results.build(search_result_hash)
