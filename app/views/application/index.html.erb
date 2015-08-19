@@ -167,7 +167,7 @@
 
         <div class="field radius">
           <%= label_tag :radius, "Within" %><br/>
-          <%= select_tag :radius, options_for_select([["2 miles", 2], ["5 miles", 5], ["10 miles", 10], ["20 miles", 20]], selected: @radius), style: "width: 100%;" %>
+          <%= select_tag :radius, options_for_select([["2 miles", 2], ["5 miles", 5], ["10 miles", 10], ["20 miles", 20]], selected: (@search.radius if @search.present?)), prompt: 'Distance', required: true, style: "width: 100%;" %>
         </div>
 
         <div class="actions">
