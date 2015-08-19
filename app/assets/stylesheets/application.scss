@@ -171,6 +171,7 @@
 
   select {
     -webkit-appearance: menulist-button !important;
+    -moz-appearance: -moz-mac-disclosure-button-open !important;
     background-color: white;
   }
 
@@ -202,12 +203,12 @@
   .actions {
     float: right;
   }
-  
+
   label {
     display: inline-block;
     padding-bottom: 1px;
   }
-  
+
   abbr {
     border-bottom: 1px dotted #000;
   }
