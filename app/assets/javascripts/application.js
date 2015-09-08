@@ -20,3 +20,10 @@ $(document).ready(function() {
     minimumInputLength: 3
   });
 });
+
+$(document).on('submit', '.search-form.town-geocoded', function() {
+  if( $('#radius').val() === '' ) {
+    alert('Please select a distance from the drop down select');
+    return false;
+  }
+});
