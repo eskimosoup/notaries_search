@@ -2,6 +2,21 @@ class Search < ActiveRecord::Base
   has_many :search_results
   has_many :member_locations, through: :search_results
 
+  scope :for_month, ->(date) { where('year(searches.created_at) = ? and month(searches.created_at) = ?', date.year, date.month) }
+
+  def self.to_csv
+    CSV.generate(headers: true) do |csv|
+      csv << ["Date", "Search Type", "Number of Results"]
+      all.each do |search|
+        csv << search.csv_row
+      end
+    end
+  end
+
+  def csv_row
+    [created_at.strftime("%b %d %Y"), type_of_search, search_results_count]
+  end
+
   before_save :set_member_locations
 
   def name
@@ -19,6 +34,13 @@ class Search < ActiveRecord::Base
     else
       'AND'
     end
+  end
+
+  def type_of_search
+    return "Name" if name
+    return "Town" if town && !postcode
+    return "Location" if postcode
+    "Blank Search"
   end
 
   private

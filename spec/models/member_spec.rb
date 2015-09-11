@@ -7,4 +7,22 @@ RSpec.describe Member, type: :model do
     it { should have_many(:member_page_views).dependent(:destroy) }
     it { should have_one(:membership_detail).dependent(:destroy) }
   end
+
+  describe "full name" do
+    it "should return the full name" do
+      member = build(:member)
+      expect(member.full_name).to eq("#{member.firstname} #{ member.lastname }")
+    end
+
+    it "should return the first name if no last name" do
+      member = build(:member, lastname: nil)
+      expect(member.full_name).to eq(member.firstname)
+    end
+
+    it "should return the last name if no first name" do
+      member = build(:member, firstname: nil)
+      expect(member.full_name).to eq(member.lastname)
+    end
+  end
+
 end
