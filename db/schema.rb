@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729135141) do
+ActiveRecord::Schema.define(version: 20150910142255) do
 
   create_table "member_locations", force: :cascade do |t|
     t.integer  "member_id",      limit: 4
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(version: 20150729135141) do
   end
 
   add_index "member_locations", ["member_id"], name: "index_member_locations_on_member_id", using: :btree
+
+  create_table "member_monthly_reports", force: :cascade do |t|
+    t.integer  "member_id",            limit: 4
+    t.date     "date",                                       null: false
+    t.integer  "view_count",           limit: 4, default: 0, null: false
+    t.integer  "search_results_count", limit: 4, default: 0, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "member_monthly_reports", ["member_id"], name: "index_member_monthly_reports_on_member_id", using: :btree
 
   create_table "member_page_views", force: :cascade do |t|
     t.integer  "member_id",  limit: 4
@@ -206,6 +217,7 @@ ActiveRecord::Schema.define(version: 20150729135141) do
   end
 
   add_foreign_key "member_locations", "members"
+  add_foreign_key "member_monthly_reports", "members"
   add_foreign_key "member_page_views", "members"
   add_foreign_key "membership_details", "members"
   add_foreign_key "search_results", "member_locations"

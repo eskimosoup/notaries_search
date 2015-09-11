@@ -1,6 +1,7 @@
 class MemberLocation < ActiveRecord::Base
   belongs_to :member
   has_one :membership_detail, through: :member
+
   geocoded_by :address_fields
   after_validation :geocode, if: ->(obj) { obj.longitude.blank? or ( obj.address.present? and obj.address_changed? ) }
 

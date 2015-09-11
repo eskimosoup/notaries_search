@@ -85,4 +85,21 @@ RSpec.describe Search, type: :model do
     end
   end
 
+  describe "type of search" do
+    it "is a name search" do
+      search = build(:search_by_name, search_results_count: 2)
+      expect(search.type_of_search).to eq("Name")
+    end
+
+    it "is a location search" do
+      search = build(:search_by_postcode, search_results_count: 2)
+      expect(search.type_of_search).to eq("Location")
+    end
+
+    it "is a town search" do
+      search = build(:search_by_postcode, search_results_count: 2)
+      expect(search.type_of_search).to eq("Location")
+    end
+  end
+
 end

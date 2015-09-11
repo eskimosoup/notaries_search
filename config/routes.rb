@@ -13,4 +13,14 @@ Optimadmin::Engine.routes.draw do
       get 'toggle'
     end
   end
+  resources :member_monthly_reports, only: :index do
+    collection do
+      get :csv
+    end
+  end
+  resources :search_monthly_reports, only: :index do
+    collection do
+      get :csv
+    end
+  end
 end
