@@ -1,0 +1,92 @@
+<%= form_for(member_location) do |f| %>
+<% if member_location.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(member_location.errors.count, "error") %> prohibited this member_location from being saved:</h2>
+
+    <ul>
+      <% member_location.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+  <p>You are editing the address for:
+    <strong><%= "#{member_location.member.firstname} #{member_location.member.lastname}" unless member_location.new_record? %></strong>
+  </p>
+
+  <div class="tabs prevent-flash">
+    <ul class="tab-list">
+      <li><a href="#tabs-1">Content</a></li>
+      <li><a href="#tabs-2">Media</a></li>
+      <li><a href="#tabs-3">Settings</a></li>
+      <li>
+        <%= link_to '#', class: 'destroy-tabs right', data: { class: 'tabs' } do %>
+          <%= octicon('chevron-down') %>
+        <% end %>
+      </li>
+    </ul>
+
+    <%= field_set_tag nil, id: 'tabs-1' do %>
+            <div class="field">
+        <%= f.label :dx_number %><br>
+        <%= f.text_field :dx_number %>
+      </div>
+            <div class="field">
+        <%= f.label :contact_phone %><br>
+        <%= f.text_field :contact_phone %>
+      </div>
+            <div class="field">
+        <%= f.label :contact_mobile %><br>
+        <%= f.text_field :contact_mobile %>
+      </div>
+            <div class="field">
+        <%= f.label :fax %><br>
+        <%= f.text_field :fax %>
+      </div>
+            <div class="field">
+        <%= f.label :website %><br>
+        <%= f.text_field :website %>
+      </div>
+            <div class="field">
+        <%= f.label :address %><br>
+        <%= f.text_area :address %>
+      </div>
+            <div class="field">
+        <%= f.label :town %><br>
+        <%= f.text_field :town %>
+      </div>
+            <div class="field">
+        <%= f.label :county %><br>
+        <%= f.text_field :county %>
+      </div>
+            <div class="field">
+        <%= f.label :postcode %><br>
+        <%= f.text_field :postcode %>
+      </div>
+            <div class="field">
+        <%= f.label :email %><br>
+        <%= f.text_field :email %>
+      </div>
+            <div class="field">
+        <%= f.label :latitude %><br>
+        <%= f.text_field :latitude %>
+      </div>
+            <div class="field">
+        <%= f.label :longitude %><br>
+        <%= f.text_field :longitude %>
+      </div>
+          <% end %>
+
+    <%= field_set_tag nil, id: 'tabs-2' do %>
+
+          <% end %>
+
+    <%= field_set_tag nil, id: 'tabs-3' do %>
+          <% end %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

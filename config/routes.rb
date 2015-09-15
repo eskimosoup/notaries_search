@@ -4,6 +4,14 @@ Rails.application.routes.draw do
   root to: "application#index"
 end
 Optimadmin::Engine.routes.draw do
+  resources :member_locations, except: [:show] do
+    collection do
+      post 'order'
+    end
+    member do
+      get 'toggle'
+    end
+  end
   resources :members, except: [:show] do
     collection do
       post 'order'
