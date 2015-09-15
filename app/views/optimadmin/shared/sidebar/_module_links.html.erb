@@ -25,6 +25,7 @@
 
       <ul class="content-category-list">
         <li><%= link_to 'Members', members_path %></li>
+        <li><%= link_to 'Member Locations', member_locations_path %></li>
         <li><%= link_to "Member Monthly Reports", member_monthly_reports_path %></li>
         <li><%= link_to "Search Monthly Reports", search_monthly_reports_path %></li>
         <% if can? :manage, Optimadmin::MenuItem %>

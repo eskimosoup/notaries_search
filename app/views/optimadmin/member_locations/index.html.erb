@@ -1,0 +1,39 @@
+<%= render 'optimadmin/shared/header/main_title', title: 'Manage Member Locations' %>
+
+<div class="main-content">
+  <div class="row module-header collapse">
+    <%#= render 'optimadmin/shared/module/index/new_item', title: 'Member Location', object: MemberLocation, path: new_member_location_path %>
+    <%= render 'optimadmin/shared/search_form' %>
+    <%= render 'optimadmin/shared/module/index/pagination' %>
+    <!--
+      <%= render 'optimadmin/shared/module/index/order', options: [['Username', 'username']] %>
+    -->
+    <%#= render 'optimadmin/shared/module/index/recycle_bin', items: @member_locations.size, path: root_url %>
+  </div>
+
+  <div class="row collapse module-list-index header">
+
+
+
+      <% # ADD TWO TO THE TITLE LARGE COLUMN SIZE BELOW TO ACCOUNT FOR NO IMAGE %>
+
+
+
+      <%= list_item 'large-10 small-12' do %>
+        <%= link_to octicon('chevron-down'), '#', class: 'helper-link index-list-expand-all', data: { this_class: 'octicon-chevron-up octicon-chevron-down' } %>
+        Title
+      <% end %>
+
+
+
+
+    <%= list_item { 'Edit' } %>
+
+    <%= list_item 'large-1 hide-for-medium-down text-center last' do 'Delete' end %>
+  </div>
+
+  <!-- <div class='module-sortable' data-module="MemberLocation"> -->
+  <%= render partial: 'member_location', collection: @member_locations, as: :member_location_presenter %>
+  <!-- </div> -->
+  <%= paginate @member_locations %>
+</div>
