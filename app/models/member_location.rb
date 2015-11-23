@@ -3,7 +3,7 @@ class MemberLocation < ActiveRecord::Base
   has_one :membership_detail, through: :member
 
   scope :search, -> (search) {
-    where('address LIKE ?', "%search%") if search.present?
+    where('address LIKE ?', "%#{search}%") if search.present?
   }
 
   geocoded_by :address_fields
