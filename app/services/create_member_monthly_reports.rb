@@ -7,7 +7,7 @@ class CreateMemberMonthlyReports
   end
 
   def call
-    Member.find_each do |member|
+    Member.displayed.find_each do |member|
       member.monthly_reports.find_or_create_by(date: date) do |monthly_report|
         monthly_report.update(view_count: view_count(member), search_results_count: search_results_count(member))
       end
