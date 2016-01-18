@@ -1,6 +1,10 @@
 class MemberLocation < ActiveRecord::Base
+  default_scope { where updated: true }
+
   belongs_to :member
   has_one :membership_detail, through: :member
+
+  scope :displayed, -> { where updated: true }
 
   scope :search, -> (search) {
     where('address LIKE ?', "%#{search}%") if search.present?

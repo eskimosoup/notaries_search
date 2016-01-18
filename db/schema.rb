@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910142255) do
+ActiveRecord::Schema.define(version: 20160118131807) do
 
   create_table "member_locations", force: :cascade do |t|
     t.integer  "member_id",      limit: 4
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150910142255) do
     t.datetime "updated_at",                   null: false
     t.float    "latitude",       limit: 24
     t.float    "longitude",      limit: 24
+    t.boolean  "updated"
   end
 
   add_index "member_locations", ["member_id"], name: "index_member_locations_on_member_id", using: :btree
@@ -70,6 +71,7 @@ ActiveRecord::Schema.define(version: 20150910142255) do
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
     t.integer  "member_page_views_count", limit: 4,     default: 0
+    t.boolean  "updated"
   end
 
   create_table "membership_details", force: :cascade do |t|

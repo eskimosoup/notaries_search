@@ -15,6 +15,8 @@ class NotariesSocietyUpload < ActiveRecord::Base
 
   def self.update
     Thread.new do
+      Member.update_all(updated: false)
+      MemberLocation.update_all(updated: false)
       data = all
       data.each do |user|
         new_member =  Member.find_or_initialize_by(contact_id: user.contact_id)
@@ -56,7 +58,8 @@ class NotariesSocietyUpload < ActiveRecord::Base
       forgotten_hash: forgotten_hash,
       lastlogin: lastlogin,
       created: created,
-      modified: modified
+      modified: modified,
+      updated: true
     }
   end
 
@@ -96,7 +99,8 @@ class NotariesSocietyUpload < ActiveRecord::Base
       address: address,
       town: town,
       county: county,
-      postcode: postcode
+      postcode: postcode,
+      updated: true
     }
   end
 
@@ -111,7 +115,8 @@ class NotariesSocietyUpload < ActiveRecord::Base
       town: town2,
       county: county2,
       postcode: postcode2,
-      email: email2
+      email: email2,
+      updated: true
     }
   end
 
