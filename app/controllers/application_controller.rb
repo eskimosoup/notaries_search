@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :global_site_settings
 
   def index
+    raise MemberLocation.near("hull+united+kingdom", 20).to_yaml
     unless params.slice(:name, :town, :postcode, :radius).blank?
       @search = CreateSearch.new(params.slice(:name, :town, :postcode, :radius), cookies[:allowed]).save
       @search_results = @search.search_results.includes(member_location: { member: :member_locations })
