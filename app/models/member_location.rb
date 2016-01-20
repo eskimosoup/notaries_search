@@ -10,6 +10,8 @@ class MemberLocation < ActiveRecord::Base
     where('address LIKE ?', "%#{search}%") if search.present?
   }
 
+  validates :member_id, presence: true
+
   geocoded_by :address_fields
   after_validation :geocode, if: ->(obj) { obj.longitude.blank? or ( obj.address.present? and obj.address_changed? ) }
 

@@ -10,7 +10,7 @@ class NotariesSocietyUpload < ActiveRecord::Base
       new_member.member_locations.create(user.location_attrs)  if user.address.present?
       new_member.member_locations.create(user.location2_attrs) if user.address2.present?
     end
-    MemberLocation.batch_geocode
+    #MemberLocation.batch_geocode
   end
 
   def self.update
@@ -19,18 +19,19 @@ class NotariesSocietyUpload < ActiveRecord::Base
       MemberLocation.update_all(updated: false)
       data = all
       data.each do |user|
-        new_member =  Member.find_or_initialize_by(contact_id: user.contact_id)
-        new_member.update_attributes(user.member_attrs)
+        new_member =  Member.unscoped.find_or_initialize_by(contact_id: user.contact_id)
+        record_saved = new_member.update_attributes(user.member_attrs)
 
-        membership_detail = MembershipDetail.find_or_initialize_by(member_id: new_member.id)
+        next unless record_saved
+        membership_detail = MembershipDetail.unscoped.find_or_initialize_by(member_id: new_member.id)
         membership_detail.update_attributes(user.membership_details_attrs)
 
         if user.address.present?
-          member_location = MemberLocation.where(member_id: new_member.id).first_or_initialize
+          member_location = MemberLocation.unscoped.where(member_id: new_member.id).first_or_initialize
           member_location.update_attributes(user.location_attrs)
         end
 
-        member_location2 = MemberLocation.where(member_id: new_member.id).last
+        member_location2 = MemberLocation.unscoped.where(member_id: new_member.id).last
         if member_location2.present? && member_location2 != member_location && user.address2.present?
           member_location2.update_attributes(user.location2_attrs)
         elsif (member_location2.blank? || member_location2 == member_location) && user.address2.present?
