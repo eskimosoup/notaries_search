@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160118131807) do
+ActiveRecord::Schema.define(version: 20160120091928) do
 
   create_table "member_locations", force: :cascade do |t|
     t.integer  "member_id",      limit: 4
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 20160118131807) do
     t.integer  "member_page_views_count", limit: 4,     default: 0
     t.boolean  "updated"
   end
+
+  add_index "members", ["contact_id"], name: "index_members_on_contact_id", unique: true, using: :btree
 
   create_table "membership_details", force: :cascade do |t|
     t.integer  "member_id",                  limit: 4

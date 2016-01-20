@@ -7,6 +7,10 @@ RSpec.describe Member, type: :model do
     it { should have_many(:member_page_views).dependent(:destroy) }
     it { should have_one(:membership_detail).dependent(:destroy) }
   end
+  
+  describe 'validations', :validation do
+    it { should validate_uniqueness_of(:contact_id) }
+  end
 
   describe "full name" do
     it "should return the full name" do
