@@ -75,7 +75,11 @@ class Search < ActiveRecord::Base
 
   def standard_search
     results = MemberLocation.where(nil)
-    results = results.joins(:member).where("members.firstname LIKE :first #{name_search_type} members.lastname LIKE :last ", first: "#{first_name}%", last: "#{last_name}%") if name
+    if first_name.present? && last_name.present?
+      results = results.joins(:member).where("members.firstname LIKE :first #{name_search_type} members.lastname LIKE :last ", first: "#{first_name}%", last: "#{last_name}%")
+    elsif first_name.present?
+      results = results.joins(:member).where("members.firstname LIKE :search OR members.lastname LIKE :search", search: "#{first_name}%") 
+    end
     results = results.where(town: town) if town
     results = results.where(county: county) if county
     results

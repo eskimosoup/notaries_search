@@ -25,7 +25,6 @@ class CreateSearch
     split = params[:name].split(' ')
     first, *last = split
     last = last.join(' ')
-
     { first_name: first, last_name: last }
   end
 
