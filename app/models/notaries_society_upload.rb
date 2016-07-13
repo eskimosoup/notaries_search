@@ -17,8 +17,7 @@ class NotariesSocietyUpload < ActiveRecord::Base
     Thread.new do
       Member.update_all(updated: false)
       MemberLocation.update_all(updated: false)
-      data = all
-      data.each do |user|
+      find_each do |user|
         new_member =  Member.unscoped.find_or_initialize_by(contact_id: user.contact_id)
         record_saved = new_member.update_attributes(user.member_attrs)
 

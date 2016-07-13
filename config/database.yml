@@ -58,7 +58,7 @@ production:
   <<: *default
   database: notaries_search_production
   username: notaries
-  host: 46.20.121.95GG
+  host: 46.20.121.95
   password: <%= ENV['NOTARIES_DATABASE_PASSWORD'] %>
 
 notaries_society_production:
